@@ -11,6 +11,6 @@ public class Virus {
 	}
 
 	void malade() {
-
+		System.out.println("Je suis malade");
 	}
 }
