@@ -13,7 +13,18 @@ public class Bilan extends Observable {
 		this.num = num;
 	}
 
-	public void setChange() {
-
+	/* Permet d'indiquer que le bilan est mis à jour. */
+	public void setChange() {		
+		System.out.println("Moi bilan " + this.num + " ... je préviens les observateurs de se mettre à jour !");
+		// J'appelle tous les observateurs .. pour leur dire ... coucou je suis à jour !!
+		this.notifyObserv();
 	}
+	
+	public void doSomething(){
+		System.out.println("Bilan N° " + this.num + " je fais quelque chose ...");
+	}
+	
+	public void doSomethingElse() {
+		System.out.println("Bilan N° " + this.num + " je fais quelque chose d'autre ...");
+	}	
 }
