@@ -10,7 +10,7 @@ public class Virus {
 		System.out.println("Je suis plus malade");
 	}
 
-	void malade() {
-
+	public void malade() {
+		System.out.println("Je suis malade");
 	}
 }
