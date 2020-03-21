@@ -9,8 +9,8 @@ public class Virus {
 	public void guerison() {
 		System.out.println("Je suis plus malade");
 	}
-	
+
 	void malade() {
-		
+
 	}
 }
