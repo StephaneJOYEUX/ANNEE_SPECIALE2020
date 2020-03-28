@@ -1,8 +1,14 @@
 package com.iut.as.modele;
 
-import com.iut.as.exception.MathematicsException;
+import com.iut.as.exception.MathematicException;
 import com.iut.as.interfaces.IMaths;
 
+/***
+ * @description : Classe "Mathematic"
+ *  
+ * @author stephane.joyeux
+ *
+ */
 public class Mathematic implements IMaths {
 
 	@Override
@@ -14,7 +20,7 @@ public class Mathematic implements IMaths {
 	public double division(Integer a, Integer b) {
 		if (a == null || b == null) {
 			System.out.println("Un des opérateurs est nul !");
-			throw new MathematicsException("Un des Operateurs est null");
+			throw new MathematicException("Un des Operateurs est null");
 		}
 		try {
 			return a / b;
@@ -22,7 +28,7 @@ public class Mathematic implements IMaths {
 			// J'attrappe l'erreur et je préviens l'utilisateur (par exemple) :
 			System.out.println("Division par zéro non autorisée !!!");
 			// Je renvoie mon exception --> Ou je l'encapsule dans une autre exception !
-			throw new MathematicsException(e, "Division par zero");
+			throw new MathematicException(e, "Division par zero");
 		}
 	}
 

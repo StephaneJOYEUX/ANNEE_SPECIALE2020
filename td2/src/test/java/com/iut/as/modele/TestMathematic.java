@@ -6,7 +6,7 @@ import static junit.framework.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.iut.as.exception.MathematicsException;
+import com.iut.as.exception.MathematicException;
 import com.iut.as.interfaces.IMaths;
 
 /**
@@ -85,14 +85,14 @@ public class TestMathematic {
 		assertEquals(-4, valueOf(maths.division(8, -2)).intValue());
 	}
 
-	@Test(expected = MathematicsException.class)
+	@Test(expected = MathematicException.class)
 	public void testDivisionParZero() {
 		// Approche plus TDD (Test Driven development)
 		// L'exception nous aide à mieux gérer ce qu'il faut faire en cas d'erreur !
 		assertEquals(-4d, maths.division(-16, 0));
 	}
 
-	@Test(expected = MathematicsException.class)
+	@Test(expected = MathematicException.class)
 	public void testDivisionWithNull() {
 		assertEquals(-4d, maths.division(null, -1));
 		assertEquals(-4d, maths.division(-16, null));
