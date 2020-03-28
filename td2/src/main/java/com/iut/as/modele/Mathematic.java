@@ -40,3 +40,6 @@ public class Mathematic implements IMaths {
 		return a - b;
 	}
 }
+
+
+
