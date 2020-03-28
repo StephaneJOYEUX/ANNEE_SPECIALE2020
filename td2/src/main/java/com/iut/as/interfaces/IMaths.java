@@ -6,7 +6,8 @@ public interface IMaths {
 
 	int soustraction(int a, int b);
 
-	double division(int a, int b);
+	// int (type primitif) --> Integer (class)
+	double division(Integer a, Integer b);
 
 	int multiplication(int a, int b);
 }
