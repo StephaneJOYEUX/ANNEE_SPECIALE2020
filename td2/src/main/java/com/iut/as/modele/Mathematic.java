@@ -11,7 +11,14 @@ public class Mathematic implements IMaths {
 
 	@Override
 	public double division(int a, int b) {
-		return a / b;
+		try {
+			return a / b;
+		} catch (ArithmeticException e) {
+			// J'attrappe l'erreur et je préviens l'utilisateur (par exemple) :
+			System.out.println("Division par zéro non autorisée !!!");
+			// Je renvoie mon exception --> Ou je l'encapsule dans une autre exception !
+			throw e;
+		}
 	}
 
 	@Override
@@ -40,6 +47,3 @@ public class Mathematic implements IMaths {
 		return a - b;
 	}
 }
-
-
-

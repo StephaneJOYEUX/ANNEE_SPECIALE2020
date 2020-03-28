@@ -1,5 +1,6 @@
 package com.iut.as.modele;
 
+import static java.lang.Double.valueOf;
 import static junit.framework.Assert.assertEquals;
 
 import org.junit.Before;
@@ -66,5 +67,27 @@ public class TestMathematic {
 		assertEquals(0, maths.multiplication(0, -7));
 		assertEquals(0, maths.multiplication(-7, 0));
 		assertEquals(0, maths.multiplication(0, 0));
+	}
+
+	@Test
+	public void testDivisionAvecNombresPositifs() {
+		// On reçoit du double :
+		assertEquals(4d, maths.division(16, 4));
+		assertEquals(4, valueOf(maths.division(8, 2)).intValue());
+	}
+
+	@Test
+	public void testDivisionAvecNombresNegatifs() {
+		// On reçoit du double :
+		assertEquals(-4d, maths.division(-16, 4));
+		assertEquals(4d, maths.division(-16, -4));
+		assertEquals(-4, valueOf(maths.division(8, -2)).intValue());
+	}
+
+	@Test(expected = ArithmeticException.class)
+	public void testDivisionParZero() {
+		// Approche plus TDD (Test Driven development)
+		// L'exception nous aide à mieux gérer ce qu'il faut faire en cas d'erreur !
+		assertEquals(-4d, maths.division(-16, 0));
 	}
 }
