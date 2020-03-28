@@ -1,16 +1,25 @@
 package com.iut.as.modele;
 
-public class Mathematic {
+import com.iut.as.interfaces.IMaths;
 
+public class Mathematic implements IMaths {
+
+	@Override
 	public int addition(int a, int b) {
 		return a + b;
 	}
 
+	@Override
 	public double division(int a, int b) {
 		return a / b;
 	}
 
+	@Override
 	public int multiplication(int a, int b) {
+		// Utilisation standard :
+		// return a * b;
+
+		// Utilisation de la méthode addition :
 		int ret = 0;
 		boolean signePositif = true;
 		if (a < 0) {
@@ -24,5 +33,10 @@ public class Mathematic {
 			return ret;
 		}
 		return -ret;
+	}
+
+	@Override
+	public int soustraction(int a, int b) {
+		return a - b;
 	}
 }
