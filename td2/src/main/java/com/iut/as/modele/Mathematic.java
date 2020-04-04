@@ -16,7 +16,7 @@ public class Mathematic implements IMaths {
 		return a + b;
 	}
 
-	@Override
+	@Override	
 	public double division(Integer a, Integer b) {
 		if (a == null || b == null) {
 			System.out.println("Un des opérateurs est nul !");
