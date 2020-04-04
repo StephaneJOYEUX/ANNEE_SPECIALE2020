@@ -126,8 +126,8 @@ public class TestMathematic {
 	@Test
 	public void testDivisionParZeroAutrePossibilite() {
 		thrown.expect(MathematicException.class);
-		// thrown.expectMessage("com.iut.as.exception.MathematicException: Division par
-		// zero");
+		// Message d'exception encapsulé de la classe 'MathematicException' :
+		thrown.expectMessage("Division par zero - exception");
 		maths.division(-16, 0);
 	}
 

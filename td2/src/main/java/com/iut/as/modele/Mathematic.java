@@ -28,7 +28,7 @@ public class Mathematic implements IMaths {
 			// J'attrappe l'erreur et je préviens l'utilisateur (par exemple) :
 			System.out.println("Division par zéro non autorisée !!!");
 			// Je renvoie mon exception --> Ou je l'encapsule dans une autre exception !
-			throw new MathematicException(e, "Division par zero");
+			throw new MathematicException(e, "Division par zero - exception");
 		}
 	}
 

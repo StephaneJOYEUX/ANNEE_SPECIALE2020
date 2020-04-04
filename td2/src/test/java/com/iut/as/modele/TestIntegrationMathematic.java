@@ -2,13 +2,13 @@ package com.iut.as.modele;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.anyInt;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import com.iut.as.interfaces.IMaths;
 
@@ -51,11 +51,10 @@ public class TestIntegrationMathematic {
 		assertEquals(7, mathsSpy.addition(3, 4));
 		assertEquals(8, mathsSpy.addition(4, 4));
 		// Je change son comportement !
-		Mockito.doReturn(4).when(mathsSpy).addition(anyInt(), anyInt());
+		doReturn(4).when(mathsSpy).addition(anyInt(), anyInt());
 		assertEquals(4, mathsSpy.addition(4, 4));
 		assertEquals(4, mathsSpy.addition(4, 3));
 		assertEquals(4, mathsSpy.addition(4, 0));
 		assertEquals(-1, mathsSpy.soustraction(3, 4));
 	}
-
 }
