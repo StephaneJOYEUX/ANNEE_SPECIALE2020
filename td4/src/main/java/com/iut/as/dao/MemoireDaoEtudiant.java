@@ -1,6 +1,7 @@
 package com.iut.as.dao;
 
 import java.sql.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import com.iut.as.interfaces.IDaoEtudiant;
@@ -36,7 +37,9 @@ public class MemoireDaoEtudiant implements IDaoEtudiant {
 	}
 
 	/* Création d'un singleton */
-	public static MemoireDaoEtudiant getInstance() {
+	/* Multi-Thread -> 1 unité d'exécution */
+	/* empêche toute instanciation multiple même par différents threads. */
+	public static synchronized MemoireDaoEtudiant getInstance() {
 		if (instance == null) {
 			instance = new MemoireDaoEtudiant();
 		}
@@ -46,9 +49,21 @@ public class MemoireDaoEtudiant implements IDaoEtudiant {
 	@Override
 	public Etudiant read(int id) {
 		// Pattern iterator !!
-		for (Etudiant etudiant : etudiants) {
-			if (etudiant.getId() == id) {
-				return etudiant;
+//		for (Etudiant etudiant : etudiants) {
+//			if (etudiant.getId() == id) {
+//				return etudiant;
+//			}
+//		}
+		// Avec utilisation du pattern 'Itérator' ..
+		// Parcourir une liste -> en faisant abstraction de son type ..
+		Iterator<Etudiant> listEtudiants = this.etudiants.iterator();
+		while (listEtudiants.hasNext()) {
+			Object object = listEtudiants.next();
+			if (object instanceof Etudiant) {
+				Etudiant etudiant = (Etudiant) object;
+				if (etudiant.getId() == id) {
+					return etudiant;
+				}
 			}
 		}
 		return null;
