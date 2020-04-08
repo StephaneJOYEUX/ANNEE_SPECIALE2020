@@ -46,6 +46,6 @@ public class Etudiant {
 
 	@Override
 	public String toString() {
-		return "id = " + this.id + " nom = " + this.nom + " prenom = " + this.prenom;
+		return "id = " + this.id + "; nom = " + this.nom + "; prénom = " + this.prenom;
 	}
 }
