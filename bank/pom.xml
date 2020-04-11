@@ -1,0 +1,75 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<!-- Groupe d'appartenance de l'ensemble de vos projets -->
+	<groupId>com.iut.as</groupId>
+	<!-- Nom du projet sous eclipse -->
+	<artifactId>bank</artifactId>
+
+	<!-- Extension de votre ficher compilé -->
+	<!-- projet java - Jar Java AR chive -->
+	<!-- projet web-java - W(web)ar -->
+	<packaging>war</packaging>
+
+	<properties>
+		<!-- Encodage / recommandation forte d'utiliser UTF-8 pour gérer les problèmes 
+			d'accent. -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+		<failOnMissingWebXml>false</failOnMissingWebXml>
+		
+		<!-- Numéro des versions -->
+		<servlets.version>3.1.0</servlets.version>
+		<junit.version>4.7</junit.version>
+
+	</properties>
+
+	<!-- Version du programme 'x', 'y', 'z' - Majeur / Mineur / Bug / Usage 
+		de la version -->
+	<!-- v1.2.3-RELEASE (SNAPSHOT, (R)RELEASE, (RC)RELEASE CANDIDATE -->
+	<version>0.0.1-SNAPSHOT</version>
+
+	<!-- Nom de l'application / a ne pas confondre avec le nom du projet -->
+	<!-- Au niveau WEB ce qui va s'afficher au nioveau du navigateur -->
+	<name>IUT BANK</name>
+
+	<!-- Url pour lancer votre application -->
+	<url>http://maven.apache.org</url>
+
+	<!-- Dépendances Maven / jar incorporés dans votre projet -> Build Path -->
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- Servlet Dependency -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>${servlets.version}</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<!-- Au niveau du build le nom final du fichier -->
+		<finalName>bankofIUT</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
