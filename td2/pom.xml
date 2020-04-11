@@ -5,6 +5,7 @@
 	<groupId>com.iut.as</groupId>
 	<artifactId>td2</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 
 	<name>td2</name>
 	<url>http://maven.apache.org</url>
