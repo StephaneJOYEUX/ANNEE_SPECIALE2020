@@ -20,10 +20,11 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
 		<failOnMissingWebXml>false</failOnMissingWebXml>
-		
+
 		<!-- Numéro des versions -->
 		<servlets.version>3.1.0</servlets.version>
 		<junit.version>4.7</junit.version>
+		<jdbc.mysql.version>5.1.25</jdbc.mysql.version>
 
 	</properties>
 
@@ -37,7 +38,7 @@
 	<name>IUT BANK</name>
 
 	<!-- Url pour lancer votre application -->
-	<url>http://maven.apache.org</url>
+	<url>http://localhost:8080/bankofIUT/</url>
 
 	<!-- Dépendances Maven / jar incorporés dans votre projet -> Build Path -->
 	<dependencies>
@@ -54,6 +55,14 @@
 			<version>${servlets.version}</version>
 			<scope>provided</scope>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${jdbc.mysql.version}</version>
+		</dependency>
+
+
 	</dependencies>
 
 	<build>
@@ -65,7 +74,9 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.8.1</version>
 				<configuration>
+					<!-- La version compilée  -->					
 					<source>1.8</source>
+					<!-- La version de JVM utilisée / à condition d'avoir le JDK-JRE sur le poste en local -->
 					<target>1.8</target>
 				</configuration>
 			</plugin>
