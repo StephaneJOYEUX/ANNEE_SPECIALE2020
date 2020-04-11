@@ -10,7 +10,7 @@
 	<artifactId>td1</artifactId>
 	
 	<!-- Notion de x.y.z -->
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0-RC</version>
 	<packaging>jar</packaging>
 
 	<name>td1</name>
