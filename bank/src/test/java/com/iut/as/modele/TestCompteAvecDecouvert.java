@@ -47,9 +47,9 @@ public class TestCompteAvecDecouvert {
 
 	@Test
 	public void testDebiterAvecSoldeInsuffisantMaisDecouvertAutoriseAtteint() {
-		// Je vais débiter mon compte de 150e:
+		// Je vais débiter mon compte de 601e:
 		assertFalse(compte.debiter(601d));
-		// Mon solde doit être égal
+		// Mon solde doit être égal à 500eoui.
 		assertEquals(MONTANT_INITIAL, compte.getSolde(), 1);
 	}
 }
