@@ -12,5 +12,4 @@ public class CompteSansDecouvert extends Compte {
 	public boolean debiter(Double montant) {
 		throw new NotYetImplementedException();
 	}
-
 }

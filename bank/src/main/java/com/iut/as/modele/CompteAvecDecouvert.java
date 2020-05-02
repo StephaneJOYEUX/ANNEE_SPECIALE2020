@@ -12,7 +12,7 @@ public class CompteAvecDecouvert extends Compte {
 	}
 
 	@Override
-	public boolean debiter(Double montant) {		
+	public boolean debiter(Double montant) {
 		throw new NotYetImplementedException();
 	}
 }
