@@ -1,4 +1,4 @@
-package com.iut.as.dao;
+package com.iut.as.factory;
 
 import org.hibernate.cfg.NotYetImplementedException;
 
