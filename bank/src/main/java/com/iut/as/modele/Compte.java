@@ -1,7 +1,5 @@
 package com.iut.as.modele;
 
-import org.hibernate.cfg.NotYetImplementedException;
-
 /***
  * Classe 'abstraite' ... donc on ne peut pas faire un 'new direct' :
  * 
@@ -38,6 +36,10 @@ public abstract class Compte {
 
 	// La méthode 'créditer' est commune à tous les comptes :
 	public boolean crediter(Double montant) {
-		throw new NotYetImplementedException();
+		if (montant != null) {
+			solde += montant;
+			return true;
+		}
+		return false;
 	}
 }

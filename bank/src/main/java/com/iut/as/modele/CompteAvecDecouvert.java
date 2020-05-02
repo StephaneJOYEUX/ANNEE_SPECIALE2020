@@ -1,18 +1,30 @@
 package com.iut.as.modele;
 
-import org.hibernate.cfg.NotYetImplementedException;
-
 public class CompteAvecDecouvert extends Compte {
 
 	private Double decouvertAutorise;
 
-	public CompteAvecDecouvert(String numCompte, Double solde) {
+	public Double getDecouvertAutorise() {
+		return decouvertAutorise;
+	}
+
+	public void setDecouvertAutorise(Double decouvertAutorise) {
+		this.decouvertAutorise = decouvertAutorise;
+	}
+
+	public CompteAvecDecouvert(String numCompte, Double solde, Double decouvertAutorise) {
 		super(numCompte, solde);
-		// TODO Auto-generated constructor stub
+		this.decouvertAutorise = decouvertAutorise;
 	}
 
 	@Override
 	public boolean debiter(Double montant) {
-		throw new NotYetImplementedException();
+		if (montant != null) {
+			if (this.getSolde() - montant >= -decouvertAutorise) {
+				setSolde(this.getSolde() - montant);
+				return true;
+			}
+		}
+		return false;
 	}
 }

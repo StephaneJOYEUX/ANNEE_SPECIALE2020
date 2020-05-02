@@ -7,24 +7,25 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TestCompteSansDecouvert {
+public class TestCompteAvecDecouvert {
 
 	private Compte compte;
 
 	private static final String NUM_COMPTE_TEST = "FR12 112345";
 	private static final double MONTANT_INITIAL = 100d;
+	private static final double DECOUVERT_AUTORISE_MONTANT_INITIAL = 500d;
 
 	@Before
 	public void setUp() {
 		// Avoir une méthode d'initialisation plus claire ..
-		compte = new CompteSansDecouvert(NUM_COMPTE_TEST, MONTANT_INITIAL);
+		compte = new CompteAvecDecouvert(NUM_COMPTE_TEST, MONTANT_INITIAL, DECOUVERT_AUTORISE_MONTANT_INITIAL);
 	}
 
 	@Test
 	public void testCrediter() {
 		// Je vais créditer mon compte de 100e :
 		assertTrue(compte.crediter(100d));
-		// Mon solde doit être égal à mon solde initial + 100e.
+		// Mon solde doit être égal ) mon solde initial + 100e.
 		assertEquals(200d, compte.getSolde(), 1);
 	}
 
@@ -35,12 +36,20 @@ public class TestCompteSansDecouvert {
 		// Mon solde doit être égal à mon solde initial + 100e.
 		assertEquals(0, compte.getSolde(), 1);
 	}
-	
+
 	@Test
-	public void testDebiterAvecSoldeInsuffisant() {
+	public void testDebiterAvecSoldeInsuffisantMaisDecouvertAutorise() {
 		// Je vais débiter mon compte de 150e:
-		assertFalse(compte.debiter(150d));
-		// Mon solde doit être égal à mon solde initial + 100e.
+		assertTrue(compte.debiter(150d));
+		// Mon solde doit être égal
+		assertEquals(-50, compte.getSolde(), 1);
+	}
+
+	@Test
+	public void testDebiterAvecSoldeInsuffisantMaisDecouvertAutoriseAtteint() {
+		// Je vais débiter mon compte de 150e:
+		assertFalse(compte.debiter(601d));
+		// Mon solde doit être égal
 		assertEquals(MONTANT_INITIAL, compte.getSolde(), 1);
 	}
 }

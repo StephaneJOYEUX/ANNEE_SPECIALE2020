@@ -1,7 +1,5 @@
 package com.iut.as.modele;
 
-import org.hibernate.cfg.NotYetImplementedException;
-
 public class CompteSansDecouvert extends Compte {
 
 	public CompteSansDecouvert(String numCompte, Double solde) {
@@ -10,6 +8,12 @@ public class CompteSansDecouvert extends Compte {
 
 	@Override
 	public boolean debiter(Double montant) {
-		throw new NotYetImplementedException();
+		if (montant != null) {
+			if (this.getSolde() - montant >= 0) {
+				this.setSolde(this.getSolde() - montant);
+				return true;
+			}
+		}
+		return false;
 	}
 }
