@@ -42,4 +42,9 @@ public abstract class Compte {
 		}
 		return false;
 	}
+
+	@Override
+	public String toString() {
+		return "Compte N° " + numCompte + " à un solde de " + solde;
+	}
 }
