@@ -16,7 +16,7 @@ public class StartPoint {
 			// Connection à la base MySQL :
 			DaoFactory daoF = DaoFactory.getDaoFactory(EPersistance.MYSQL);
 			// Connection à la table 'compte' :
-			IDaoCompte dao = daoF.getDaoCompte();			
+			IDaoCompte dao = daoF.getDaoCompte();
 			// Connection à la table 'client' :
 			IDaoClient daoClient = daoF.getDaoClient();
 			System.out.println("===============================");
@@ -31,6 +31,8 @@ public class StartPoint {
 			for (Client client : clients) {
 				System.out.println(client.toString());
 			}
+			// Comment faire le lien entre un compte et son client ??
+			// Pour la suite du cours !! 2 - 3 lignes :)
 
 		} catch (Exception e) {
 			System.out.println("Connection impossible " + e.getMessage());

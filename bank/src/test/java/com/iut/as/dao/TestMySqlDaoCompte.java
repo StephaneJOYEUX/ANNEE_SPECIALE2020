@@ -4,6 +4,7 @@ import static com.iut.as.enumerations.EPersistance.MYSQL;
 import static com.iut.as.factory.DaoFactory.getDaoFactory;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertNotNull;
+import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
@@ -23,6 +24,8 @@ public class TestMySqlDaoCompte {
 
 	private IDaoCompte dao;
 
+	private static final String TEST_NUMERO_COMPTE = "AB7328887341";
+
 	@Before
 	public void setUp() throws Exception {
 		// Je veux récupérer une instance de MySql :
@@ -39,5 +42,12 @@ public class TestMySqlDaoCompte {
 		List<Compte> comptes = dao.getComptes();
 		assertNotNull(comptes);
 		assertFalse(comptes.isEmpty());
+	}
+
+	@Test
+	public void testReadByKey() {
+		Compte compte = dao.readByKey("AB7328887341");
+		assertNotNull(compte);
+		assertEquals(TEST_NUMERO_COMPTE, compte.getNumCompte());
 	}
 }

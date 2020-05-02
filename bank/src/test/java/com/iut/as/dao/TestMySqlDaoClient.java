@@ -27,11 +27,16 @@ public class TestMySqlDaoClient {
 	public void testDaoNotNull() {
 		assertNotNull(dao);
 	}
-	
+
 	@Test
 	public void testRecupererListeClients() {
 		List<Client> clients = dao.getListClient();
 		assertNotNull(clients);
 		assertFalse(clients.isEmpty());
+	}
+
+	@Test
+	public void testReadByKey() {
+		
 	}
 }

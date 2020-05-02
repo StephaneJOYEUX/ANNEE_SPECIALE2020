@@ -20,7 +20,7 @@ public abstract class Compte {
 		this.solde = solde;
 	}
 
-	protected String getNumCompte() {
+	public String getNumCompte() {
 		return numCompte;
 	}
 

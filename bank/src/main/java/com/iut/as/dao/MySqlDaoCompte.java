@@ -26,17 +26,17 @@ public class MySqlDaoCompte implements IDaoCompte {
 
 	// Création d'une instance de type singleton :
 	public static MySqlDaoCompte getMySqlInstance() {
-		if (instance == null) {			
+		if (instance == null) {
 			instance = new MySqlDaoCompte();
 			System.out.println("Connection à la table 'Compte' établie !");
-		}		
+		}
 		return instance;
 	}
 
 	// Constructeur privé --> Donc on peut plus faire de 'new' :
 	private MySqlDaoCompte() {
 		try {
-			connection = getInstance();			
+			connection = getInstance();
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 			System.out.println("Connection à la banque est NON ok !");
@@ -60,7 +60,20 @@ public class MySqlDaoCompte implements IDaoCompte {
 
 	@Override
 	public Compte readByKey(String key) {
-		throw new NotYetImplementedException();
+		String mySQL = "SELECT * FROM compte WHERE numeroCompte = ?";
+		try {
+			PreparedStatement requete = connection.prepareStatement(mySQL);
+			// Initialisation du paramètre N° 1 :
+			requete.setString(1, key);
+			ResultSet res = requete.executeQuery();
+			while (res.next()) {
+				Compte compte = new CompteSansDecouvert(res.getString("numeroCompte"), res.getDouble("solde"));
+				return compte;
+			}
+		} catch (SQLException e) {
+			System.out.println("Erreur " + e.getMessage());
+		}
+		return null;
 	}
 
 	@Override
