@@ -41,4 +41,9 @@ public class Client {
 	public boolean addCompte(Compte compte) {
 		throw new NotYetImplementedException();
 	}
+
+	@Override
+	public String toString() {
+		return "Client N° " + numeroClient + " / nom " + nom + " / adresse " + adresse;
+	}
 }

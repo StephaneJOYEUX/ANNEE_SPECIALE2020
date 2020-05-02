@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 /***
  * Classe permettant d'ouvrir une session vers la base de données MySQL.
+ * 
  * @author stephane.joyeux
  *
  */
@@ -25,8 +26,8 @@ public class MySqlConnexion {
 	public static Connection getInstance() throws SQLException {
 		if (instance == null) {
 			instance = creerConnection();
+			System.out.println("Connection établie avec le serveur - et la banque !");
 		}
-		System.out.println("Connection établie avec le serveur !");
 		return instance;
 	}
 

@@ -27,8 +27,8 @@ public class MySqlDaoClient implements IDaoClient {
 	public static MySqlDaoClient getMySqlInstance() {
 		if (instance == null) {
 			instance = new MySqlDaoClient();
+			System.out.println("Connection à la table 'Client' établie !");
 		}
-		System.out.println("Connection à la table Client établie !");
 		return instance;
 	}
 
@@ -36,7 +36,6 @@ public class MySqlDaoClient implements IDaoClient {
 	private MySqlDaoClient() {
 		try {
 			connection = getInstance();
-			System.out.println("Connection à la banque est ok !");
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 			System.out.println("Connection à la banque est NON ok !");

@@ -26,18 +26,17 @@ public class MySqlDaoCompte implements IDaoCompte {
 
 	// Création d'une instance de type singleton :
 	public static MySqlDaoCompte getMySqlInstance() {
-		if (instance == null) {
+		if (instance == null) {			
 			instance = new MySqlDaoCompte();
-		}
-		System.out.println("Connection à la table Compte établie !");
+			System.out.println("Connection à la table 'Compte' établie !");
+		}		
 		return instance;
 	}
 
 	// Constructeur privé --> Donc on peut plus faire de 'new' :
 	private MySqlDaoCompte() {
 		try {
-			connection = getInstance();
-			System.out.println("Connection à la banque est ok !");
+			connection = getInstance();			
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 			System.out.println("Connection à la banque est NON ok !");
