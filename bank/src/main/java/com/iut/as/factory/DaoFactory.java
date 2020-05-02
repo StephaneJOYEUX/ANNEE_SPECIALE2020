@@ -3,6 +3,7 @@ package com.iut.as.factory;
 import org.hibernate.cfg.NotYetImplementedException;
 
 import com.iut.as.enumerations.EPersistance;
+import com.iut.as.interfaces.IDaoClient;
 import com.iut.as.interfaces.IDaoCompte;
 
 /**
@@ -27,6 +28,9 @@ public abstract class DaoFactory {
 		return daoF;
 	}
 
-	// Le lien vers la table 'Compte'
+	// Le lien vers la table 'Compte' :
 	public abstract IDaoCompte getDaoCompte();
+
+	// Le lien vers la table 'Client' :
+	public abstract IDaoClient getDaoClient();
 }

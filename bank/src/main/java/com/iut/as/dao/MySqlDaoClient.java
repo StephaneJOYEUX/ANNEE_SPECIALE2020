@@ -11,30 +11,29 @@ import java.util.List;
 
 import org.hibernate.cfg.NotYetImplementedException;
 
-import com.iut.as.interfaces.IDaoCompte;
-import com.iut.as.modele.Compte;
-import com.iut.as.modele.CompteSansDecouvert;
+import com.iut.as.interfaces.IDaoClient;
+import com.iut.as.modele.Client;
 
-public class MySqlDaoCompte implements IDaoCompte {
+public class MySqlDaoClient implements IDaoClient {
 
 	// Création d'un singleton pour éviter les instanciations multiples !
 	// Ce qu'il y a de plus couteux !
-	private static MySqlDaoCompte instance;
+	private static MySqlDaoClient instance;
 
 	// La connection vers la base de données :
 	private Connection connection;
 
 	// Création d'une instance de type singleton :
-	public static MySqlDaoCompte getMySqlInstance() {
+	public static MySqlDaoClient getMySqlInstance() {
 		if (instance == null) {
-			instance = new MySqlDaoCompte();
+			instance = new MySqlDaoClient();
 		}
-		System.out.println("Connection à la table Compte établie !");
+		System.out.println("Connection à la table Client établie !");
 		return instance;
 	}
 
 	// Constructeur privé --> Donc on peut plus faire de 'new' :
-	private MySqlDaoCompte() {
+	private MySqlDaoClient() {
 		try {
 			connection = getInstance();
 			System.out.println("Connection à la banque est ok !");
@@ -45,52 +44,44 @@ public class MySqlDaoCompte implements IDaoCompte {
 	}
 
 	@Override
-	public boolean create(Compte object) {
+	public boolean create(Client object) {
 		throw new NotYetImplementedException();
 	}
 
 	@Override
-	public boolean update(Compte object) {
+	public boolean update(Client object) {
 		throw new NotYetImplementedException();
 	}
 
 	@Override
-	public Compte readById(int id) {
+	public Client readById(int id) {
 		throw new NotYetImplementedException();
 	}
 
 	@Override
-	public Compte readByKey(String key) {
+	public Client readByKey(String key) {
 		throw new NotYetImplementedException();
 	}
 
 	@Override
-	public boolean delete(Compte object) {
+	public boolean delete(Client object) {
 		throw new NotYetImplementedException();
 	}
 
 	@Override
-	public List<Compte> getComptes() {
-		// Lire tous les comptes existant dans la Bdd;
-		String mySQL = "SELECT * FROM compte";
-		List<Compte> comptes = new ArrayList<>();
+	public List<Client> getListClient() {
+		String mySQL = "SELECT * FROM utilisateur";
+		List<Client> clients = new ArrayList<>();
 		try {
 			PreparedStatement requete = connection.prepareStatement(mySQL);
 			ResultSet res = requete.executeQuery();
 			// Tant qu'un enregistrement existe :
 			while (res.next()) {
-				// Permet de récupérer la valeur d'un numéro de compte :
-				String numeroCompte = res.getString("numeroCompte");
-				// Non utilisé pour le moment :
-				// String numeroClient = res.getString("userId");
-				Double solde = res.getDouble("solde");
-				// boolean decouvertAutorise = false;
-				Compte compte = new CompteSansDecouvert(numeroCompte, solde);
-				comptes.add(compte);
+				clients.add(new Client(res.getString("userId"), res.getString("nom"), res.getString("adresse")));
 			}
 		} catch (SQLException e) {
 			System.out.println("Erreur " + e.getMessage());
 		}
-		return comptes;
+		return clients;
 	}
 }

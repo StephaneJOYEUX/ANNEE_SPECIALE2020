@@ -8,6 +8,13 @@ public class Client {
 
 	private String numeroClient;
 
+	public Client(String numeroClient, String nom, String adresse) {
+		super();
+		this.numeroClient = numeroClient;
+		this.nom = nom;
+		this.adresse = adresse;
+	}
+
 	public String getAdresse() {
 		return adresse;
 	}
