@@ -30,9 +30,13 @@ public class StartPoint {
 			List<Client> clients = daoClient.getListClient();
 			for (Client client : clients) {
 				System.out.println(client.toString());
+				// Comment faire le lien entre un compte et son client ??
+				// Pour la suite du cours !! 2 - 3 lignes :)
+				// Ajouter un compte à la liste des clients.
+				client.addCompte(null); // ??? Comment on fait ..:)
+				// vous avez la réponse un peu plus haut :)
+
 			}
-			// Comment faire le lien entre un compte et son client ??
-			// Pour la suite du cours !! 2 - 3 lignes :)
 
 		} catch (Exception e) {
 			System.out.println("Connection impossible " + e.getMessage());
