@@ -1,23 +1,16 @@
 package com.iut.as.dao;
 
-import static com.iut.as.dao.BankConstants.DECOUVERT_AUTORISE;
-import static com.iut.as.dao.BankConstants.MONTANT_DECOUVERT_AUTORISE;
-import static com.iut.as.dao.BankConstants.NUMERO_COMPTE;
-import static com.iut.as.dao.BankConstants.SOLDE;
 import static com.iut.as.dao.MySqlConnexion.getInstance;
-import static com.iut.as.enumerations.ETypeCompte.getType;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.cfg.NotYetImplementedException;
 
-import com.iut.as.enumerations.ETypeCompte;
-import com.iut.as.factory.modele.CompteFactory;
+import com.iut.as.dto.CompteDto;
+import com.iut.as.exceptions.BankTechnicalException;
 import com.iut.as.interfaces.IDaoCompte;
 import com.iut.as.modele.Compte;
 
@@ -32,6 +25,9 @@ public class MySqlDaoCompte implements IDaoCompte {
 	// Création d'un singleton pour éviter les instanciations multiples !
 	// Ce qu'il y a de plus couteux !
 	private static MySqlDaoCompte instance;
+
+	/* Data Transform Objet - Pattern Adapter */
+	private CompteDto dto;
 
 	// La connection vers la base de données :
 	private Connection connection;
@@ -49,9 +45,9 @@ public class MySqlDaoCompte implements IDaoCompte {
 	private MySqlDaoCompte() {
 		try {
 			connection = getInstance();
+			dto = new CompteDto();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-			System.out.println("Connection à la banque est NON ok !");
+			throw new BankTechnicalException("MySqlDaoCompte()", e);
 		}
 	}
 
@@ -71,15 +67,15 @@ public class MySqlDaoCompte implements IDaoCompte {
 	}
 
 	@Override
+	/* @return 'un compte' du client . */
 	public Compte readByKey(String key) {
 		try {
 			PreparedStatement requete = connection.prepareStatement("SELECT * FROM compte WHERE numeroCompte = ?");
 			requete.setString(1, key);
-			return adapt(requete).get(0);
+			return dto.adapt(requete).get(0);
 		} catch (SQLException e) {
-			System.out.println("Erreur " + e.getMessage());
+			throw new BankTechnicalException("readByKey()", e);
 		}
-		return null;
 	}
 
 	@Override
@@ -88,45 +84,25 @@ public class MySqlDaoCompte implements IDaoCompte {
 	}
 
 	@Override
-	/* @return - Tous les comptes existant dans la Bdd. */
+	/* @return - Tous 'les comptes' existants dans la Bdd. */
 	public List<Compte> getComptes() {
 		try {
-			return adapt(connection.prepareStatement("SELECT * FROM compte"));
+			return dto.adapt(connection.prepareStatement("SELECT * FROM compte"));
 		} catch (SQLException e) {
-			System.out.println("Erreur function getComptes() : " + e.getMessage());
+			throw new BankTechnicalException("getComptes()", e);
 		}
-		return new ArrayList<>();
 	}
 
 	@Override
-	/* @return - Les comptes du client uniquement. */
+	/* @return - Les 'comptes du client' uniquement. */
 	public List<Compte> getComptesByClient(String userId) {
 		try {
 			PreparedStatement requete = connection.prepareStatement("SELECT * FROM compte WHERE userId = ?");
 			// Initialisation du paramètre N° 1 :
 			requete.setString(1, userId);
-			return adapt(requete);
+			return dto.adapt(requete);
 		} catch (SQLException e) {
-			System.out.println("Erreur function getComptesByClient() :" + e.getMessage());
+			throw new BankTechnicalException("getComptes()", e);
 		}
-		return new ArrayList<>();
-	}
-
-	/*
-	 * Design Pattern 'Adapter' qui transforme un resultSet en un compte -> liste
-	 * comptes.
-	 */
-	private List<Compte> adapt(PreparedStatement requete) throws SQLException {
-		List<Compte> comptes = new ArrayList<>();
-		ResultSet res = requete.executeQuery();
-		while (res.next()) {
-			String numCompte = res.getString(NUMERO_COMPTE);
-			Double solde = res.getDouble(SOLDE);
-			Double decouvertAutorise = res.getDouble(MONTANT_DECOUVERT_AUTORISE);
-			String autorisationDecouvert = res.getString(DECOUVERT_AUTORISE);
-			ETypeCompte typeCompte = getType(autorisationDecouvert);
-			comptes.add(CompteFactory.getCompte(typeCompte, numCompte, solde, decouvertAutorise));
-		}
-		return comptes;
 	}
 }
