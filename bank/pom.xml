@@ -32,8 +32,10 @@
 		<java.version>1.8</java.version>
 
 		<maven.war.plugin.version>2.6</maven.war.plugin.version>
-
 		<tomcat7-maven-plugin>2.2</tomcat7-maven-plugin>
+
+		<!-- Version Struts -->
+		<struts2.version>2.1.6</struts2.version>
 
 	</properties>
 
@@ -76,6 +78,14 @@
 			<artifactId>hibernate-core</artifactId>
 			<version>${hibernate.core.version}</version>
 		</dependency>
+
+		<!-- Pour le moment cette version / on verra pour la migration -->
+		<dependency>
+			<groupId>org.apache.struts</groupId>
+			<artifactId>struts2-core</artifactId>
+			<version>${struts2.version}</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
