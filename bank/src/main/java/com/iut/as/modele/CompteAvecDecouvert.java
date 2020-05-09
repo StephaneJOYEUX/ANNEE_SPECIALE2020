@@ -27,4 +27,9 @@ public class CompteAvecDecouvert extends Compte {
 		}
 		return false;
 	}
+
+	@Override
+	public boolean decouvertAutorise() {
+		return true;
+	}
 }

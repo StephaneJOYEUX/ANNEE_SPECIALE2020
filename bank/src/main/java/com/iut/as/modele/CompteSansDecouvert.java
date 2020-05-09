@@ -16,4 +16,9 @@ public class CompteSansDecouvert extends Compte {
 		}
 		return false;
 	}
+
+	@Override
+	public boolean decouvertAutorise() {
+		return false;
+	}
 }

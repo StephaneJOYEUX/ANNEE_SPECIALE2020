@@ -34,6 +34,9 @@ public abstract class Compte {
 	// La méthode 'débiter' est différente selon le type de compte.
 	public abstract boolean debiter(Double montant);
 
+	// Permet de savoir si un découvert est autorisé :
+	public abstract boolean decouvertAutorise();
+
 	// La méthode 'créditer' est commune à tous les comptes :
 	public boolean crediter(Double montant) {
 		if (montant != null) {

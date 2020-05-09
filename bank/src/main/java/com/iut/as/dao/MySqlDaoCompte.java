@@ -1,6 +1,7 @@
 package com.iut.as.dao;
 
 import static com.iut.as.dao.MySqlConnexion.getInstance;
+import static com.iut.as.enumerations.ETypeCompte.getTypeAccordingString;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,6 +12,8 @@ import java.util.List;
 
 import org.hibernate.cfg.NotYetImplementedException;
 
+import com.iut.as.enumerations.ETypeCompte;
+import com.iut.as.factory.modele.CompteFactory;
 import com.iut.as.interfaces.IDaoCompte;
 import com.iut.as.modele.Compte;
 import com.iut.as.modele.CompteSansDecouvert;
@@ -20,6 +23,12 @@ public class MySqlDaoCompte implements IDaoCompte {
 	// Création d'un singleton pour éviter les instanciations multiples !
 	// Ce qu'il y a de plus couteux !
 	private static MySqlDaoCompte instance;
+
+	// Création de variables statiques des noms de colonnes des tables :
+	private static final String NUMERO_COMPTE = "numeroCompte";
+	private static final String SOLDE = "solde";
+	private static final String DECOUVERT_AUTORISE = "avecDecouvert";
+	private static final String MONTANT_DECOUVERT_AUTORISE = "decouvertAutorise";
 
 	// La connection vers la base de données :
 	private Connection connection;
@@ -67,8 +76,12 @@ public class MySqlDaoCompte implements IDaoCompte {
 			requete.setString(1, key);
 			ResultSet res = requete.executeQuery();
 			while (res.next()) {
-				Compte compte = new CompteSansDecouvert(res.getString("numeroCompte"), res.getDouble("solde"));
-				return compte;
+				String numCompte = res.getString(NUMERO_COMPTE);
+				Double solde = res.getDouble(SOLDE);
+				Double decouvertAutorise = res.getDouble(MONTANT_DECOUVERT_AUTORISE);
+				String autorisationDecouvert = res.getString(DECOUVERT_AUTORISE);
+				ETypeCompte typeCompte = getTypeAccordingString(autorisationDecouvert);
+				return CompteFactory.getComptes(typeCompte, numCompte, solde, decouvertAutorise);
 			}
 		} catch (SQLException e) {
 			System.out.println("Erreur " + e.getMessage());
@@ -92,10 +105,10 @@ public class MySqlDaoCompte implements IDaoCompte {
 			// Tant qu'un enregistrement existe :
 			while (res.next()) {
 				// Permet de récupérer la valeur d'un numéro de compte :
-				String numeroCompte = res.getString("numeroCompte");
+				String numeroCompte = res.getString(NUMERO_COMPTE);
 				// Non utilisé pour le moment :
 				// String numeroClient = res.getString("userId");
-				Double solde = res.getDouble("solde");
+				Double solde = res.getDouble(SOLDE);
 				// boolean decouvertAutorise = false;
 				Compte compte = new CompteSansDecouvert(numeroCompte, solde);
 				comptes.add(compte);
@@ -109,27 +122,27 @@ public class MySqlDaoCompte implements IDaoCompte {
 	@Override
 	public List<Compte> getComptesByClient(String userId) {
 		// Lire tous les comptes existant dans la Bdd;
-				String mySQL = "SELECT * FROM compte WHERE userId = ?";
-				List<Compte> comptes = new ArrayList<>();
-				try {
-					PreparedStatement requete = connection.prepareStatement(mySQL);
-					// Initialisation du paramètre N° 1 :
-					requete.setString(1, userId);
-					ResultSet res = requete.executeQuery();
-					// Tant qu'un enregistrement existe :
-					while (res.next()) {
-						// Permet de récupérer la valeur d'un numéro de compte :
-						String numeroCompte = res.getString("numeroCompte");
-						// Non utilisé pour le moment :
-						// String numeroClient = res.getString("userId");
-						Double solde = res.getDouble("solde");
-						// boolean decouvertAutorise = false;
-						Compte compte = new CompteSansDecouvert(numeroCompte, solde);
-						comptes.add(compte);
-					}
-				} catch (SQLException e) {
-					System.out.println("Erreur " + e.getMessage());
-				}
-				return comptes;
+		String mySQL = "SELECT * FROM compte WHERE userId = ?";
+		List<Compte> comptes = new ArrayList<>();
+		try {
+			PreparedStatement requete = connection.prepareStatement(mySQL);
+			// Initialisation du paramètre N° 1 :
+			requete.setString(1, userId);
+			ResultSet res = requete.executeQuery();
+			// Tant qu'un enregistrement existe :
+			while (res.next()) {
+				// Permet de récupérer la valeur d'un numéro de compte :
+				String numeroCompte = res.getString(NUMERO_COMPTE);
+				// Non utilisé pour le moment :
+				// String numeroClient = res.getString("userId");
+				Double solde = res.getDouble(SOLDE);
+				// boolean decouvertAutorise = false;
+				Compte compte = new CompteSansDecouvert(numeroCompte, solde);
+				comptes.add(compte);
+			}
+		} catch (SQLException e) {
+			System.out.println("Erreur " + e.getMessage());
+		}
+		return comptes;
 	}
 }

@@ -1,7 +1,7 @@
 package com.iut.as.dao;
 
 import static com.iut.as.enumerations.EPersistance.MYSQL;
-import static com.iut.as.factory.DaoFactory.getDaoFactory;
+import static com.iut.as.factory.dao.DaoFactory.getDaoFactory;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertNotNull;
 import static org.junit.Assert.assertEquals;

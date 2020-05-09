@@ -3,7 +3,7 @@ package com.iut.as.main;
 import java.util.List;
 
 import com.iut.as.enumerations.EPersistance;
-import com.iut.as.factory.DaoFactory;
+import com.iut.as.factory.dao.DaoFactory;
 import com.iut.as.interfaces.IDaoClient;
 import com.iut.as.interfaces.IDaoCompte;
 import com.iut.as.modele.Client;

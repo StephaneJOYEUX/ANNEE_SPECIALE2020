@@ -1,7 +1,7 @@
 package com.iut.as.dao;
 
 import static com.iut.as.enumerations.EPersistance.MYSQL;
-import static com.iut.as.factory.DaoFactory.getDaoFactory;
+import static com.iut.as.factory.dao.DaoFactory.getDaoFactory;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertNotNull;
 
@@ -37,6 +37,8 @@ public class TestMySqlDaoClient {
 		assertFalse(clients.isEmpty());
 		for (Client client : clients) {
 			if (USER_ID_TEST.equals(client.getNumeroClient())) {
+				// Sous condition que les données du compte de l'utilisateur existent toujours
+				// dans la base !
 				assertFalse(client.getComptes().isEmpty());
 			}
 		}

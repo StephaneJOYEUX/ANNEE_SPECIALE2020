@@ -1,4 +1,4 @@
-package com.iut.as.factory;
+package com.iut.as.factory.dao;
 
 import com.iut.as.dao.MySqlDaoClient;
 import com.iut.as.dao.MySqlDaoCompte;
