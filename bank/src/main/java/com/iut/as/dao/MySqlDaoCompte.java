@@ -83,7 +83,7 @@ public class MySqlDaoCompte implements IDaoCompte {
 					.prepareStatement("SELECT * FROM " + TABLE_NAME + " WHERE " + NUMERO_COMPTE + " = ?");
 			requete.setString(1, key);
 			return dto.adapt(requete).get(0);
-		} catch (SQLException e) {
+		} catch (SQLException | IndexOutOfBoundsException e) {
 			throw new BankTechnicalException("readByKey()", e);
 		}
 	}

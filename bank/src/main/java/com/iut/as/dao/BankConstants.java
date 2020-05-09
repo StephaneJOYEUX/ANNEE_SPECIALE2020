@@ -9,5 +9,4 @@ public class BankConstants {
 	public static final String SOLDE = "solde";
 	public static final String DECOUVERT_AUTORISE = "avecDecouvert";
 	public static final String MONTANT_DECOUVERT_AUTORISE = "decouvertAutorise";
-
 }

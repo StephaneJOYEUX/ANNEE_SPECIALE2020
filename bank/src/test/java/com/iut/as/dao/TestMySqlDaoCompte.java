@@ -12,6 +12,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.iut.as.exceptions.BankTechnicalException;
 import com.iut.as.interfaces.IDaoCompte;
 import com.iut.as.modele.Compte;
 
@@ -27,6 +28,8 @@ public class TestMySqlDaoCompte {
 
 	private static final String TEST_NUMERO_COMPTE = "AB7328887341";
 
+	private static final String NUMERO_COMPTE_EXISTE_PAS = "unnumerocomptequiexistepas";
+
 	@Before
 	public void setUp() throws Exception {
 		// Je veux récupérer une instance de MySql :
@@ -36,6 +39,11 @@ public class TestMySqlDaoCompte {
 	@Test
 	public void testDaoNotNull() {
 		assertNotNull(dao);
+	}
+
+	@Test(expected = BankTechnicalException.class)
+	public void testRecupererUnCompteQuiExistePas() {
+		assertNotNull(dao.readByKey(NUMERO_COMPTE_EXISTE_PAS));
 	}
 
 	@Test
