@@ -105,4 +105,31 @@ public class MySqlDaoCompte implements IDaoCompte {
 		}
 		return comptes;
 	}
+
+	@Override
+	public List<Compte> getComptesByClient(String userId) {
+		// Lire tous les comptes existant dans la Bdd;
+				String mySQL = "SELECT * FROM compte WHERE userId = ?";
+				List<Compte> comptes = new ArrayList<>();
+				try {
+					PreparedStatement requete = connection.prepareStatement(mySQL);
+					// Initialisation du paramètre N° 1 :
+					requete.setString(1, userId);
+					ResultSet res = requete.executeQuery();
+					// Tant qu'un enregistrement existe :
+					while (res.next()) {
+						// Permet de récupérer la valeur d'un numéro de compte :
+						String numeroCompte = res.getString("numeroCompte");
+						// Non utilisé pour le moment :
+						// String numeroClient = res.getString("userId");
+						Double solde = res.getDouble("solde");
+						// boolean decouvertAutorise = false;
+						Compte compte = new CompteSansDecouvert(numeroCompte, solde);
+						comptes.add(compte);
+					}
+				} catch (SQLException e) {
+					System.out.println("Erreur " + e.getMessage());
+				}
+				return comptes;
+	}
 }
