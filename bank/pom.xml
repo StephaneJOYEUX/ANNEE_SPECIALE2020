@@ -30,6 +30,10 @@
 		<!-- Gestion de la compilation -->
 		<maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
 		<java.version>1.8</java.version>
+		
+		<maven.war.plugin.version>2.6</maven.war.plugin.version>
+		
+		<tomcat7-maven-plugin>2.2</tomcat7-maven-plugin>
 
 	</properties>
 
@@ -75,8 +79,16 @@
 	</dependencies>
 
 	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<excludes>
+					<exclude>**/*.java</exclude>
+				</excludes>
+			</resource>
+		</resources>
 		<!-- Au niveau du build le nom final du fichier -->
-		<finalName>bankofIUT_v${project.version}</finalName>	
+		<finalName>bankofIUT</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -88,6 +100,23 @@
 					<source>${java.version}</source>
 					<!-- La version compilée -->
 					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>${maven.war.plugin.version}</version>
+				<configuration>
+					<warSourceDirectory>WebContent</warSourceDirectory>
+					<failOnMissingWebXml>true</failOnMissingWebXml>
+					<webXml>src\main\webapp\WEB-INF\web.xml</webXml>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>${tomcat7-maven-plugin}</version>
+				<configuration>
+					<path>/TheBank</path>
 				</configuration>
 			</plugin>
 		</plugins>
