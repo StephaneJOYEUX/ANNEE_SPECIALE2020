@@ -16,15 +16,21 @@ import com.iut.as.enumerations.ETypeCompte;
 import com.iut.as.factory.modele.CompteFactory;
 import com.iut.as.interfaces.IDaoCompte;
 import com.iut.as.modele.Compte;
-import com.iut.as.modele.CompteSansDecouvert;
 
+/***
+ * @description : Dao vers la table Compte (Base MySql).
+ * 
+ * @author : stephane.joyeux
+ *
+ */
 public class MySqlDaoCompte implements IDaoCompte {
 
 	// Création d'un singleton pour éviter les instanciations multiples !
 	// Ce qu'il y a de plus couteux !
 	private static MySqlDaoCompte instance;
 
-	// Création de variables statiques des noms de colonnes des tables :
+	// Création de variables statiques des noms de colonnes des tables utilisées
+	// dans la DAO :
 	private static final String NUMERO_COMPTE = "numeroCompte";
 	private static final String SOLDE = "solde";
 	private static final String DECOUVERT_AUTORISE = "avecDecouvert";
@@ -69,20 +75,10 @@ public class MySqlDaoCompte implements IDaoCompte {
 
 	@Override
 	public Compte readByKey(String key) {
-		String mySQL = "SELECT * FROM compte WHERE numeroCompte = ?";
 		try {
-			PreparedStatement requete = connection.prepareStatement(mySQL);
-			// Initialisation du paramètre N° 1 :
+			PreparedStatement requete = connection.prepareStatement("SELECT * FROM compte WHERE numeroCompte = ?");
 			requete.setString(1, key);
-			ResultSet res = requete.executeQuery();
-			while (res.next()) {
-				String numCompte = res.getString(NUMERO_COMPTE);
-				Double solde = res.getDouble(SOLDE);
-				Double decouvertAutorise = res.getDouble(MONTANT_DECOUVERT_AUTORISE);
-				String autorisationDecouvert = res.getString(DECOUVERT_AUTORISE);
-				ETypeCompte typeCompte = getTypeAccordingString(autorisationDecouvert);
-				return CompteFactory.getComptes(typeCompte, numCompte, solde, decouvertAutorise);
-			}
+			return getCompteFromResultSet(requete).get(0);
 		} catch (SQLException e) {
 			System.out.println("Erreur " + e.getMessage());
 		}
@@ -95,53 +91,44 @@ public class MySqlDaoCompte implements IDaoCompte {
 	}
 
 	@Override
+	/* @return - Tous les comptes existant dans la Bdd. */
 	public List<Compte> getComptes() {
-		// Lire tous les comptes existant dans la Bdd;
-		String mySQL = "SELECT * FROM compte";
-		List<Compte> comptes = new ArrayList<>();
 		try {
-			PreparedStatement requete = connection.prepareStatement(mySQL);
-			ResultSet res = requete.executeQuery();
-			// Tant qu'un enregistrement existe :
-			while (res.next()) {
-				// Permet de récupérer la valeur d'un numéro de compte :
-				String numeroCompte = res.getString(NUMERO_COMPTE);
-				// Non utilisé pour le moment :
-				// String numeroClient = res.getString("userId");
-				Double solde = res.getDouble(SOLDE);
-				// boolean decouvertAutorise = false;
-				Compte compte = new CompteSansDecouvert(numeroCompte, solde);
-				comptes.add(compte);
-			}
+			return getCompteFromResultSet(connection.prepareStatement("SELECT * FROM compte"));
 		} catch (SQLException e) {
-			System.out.println("Erreur " + e.getMessage());
+			System.out.println("Erreur function getComptes() : " + e.getMessage());
 		}
-		return comptes;
+		return new ArrayList<>();
 	}
 
 	@Override
+	/* @return - Les comptes du client uniquement. */
 	public List<Compte> getComptesByClient(String userId) {
-		// Lire tous les comptes existant dans la Bdd;
-		String mySQL = "SELECT * FROM compte WHERE userId = ?";
-		List<Compte> comptes = new ArrayList<>();
 		try {
-			PreparedStatement requete = connection.prepareStatement(mySQL);
+			PreparedStatement requete = connection.prepareStatement("SELECT * FROM compte WHERE userId = ?");
 			// Initialisation du paramètre N° 1 :
 			requete.setString(1, userId);
-			ResultSet res = requete.executeQuery();
-			// Tant qu'un enregistrement existe :
-			while (res.next()) {
-				// Permet de récupérer la valeur d'un numéro de compte :
-				String numeroCompte = res.getString(NUMERO_COMPTE);
-				// Non utilisé pour le moment :
-				// String numeroClient = res.getString("userId");
-				Double solde = res.getDouble(SOLDE);
-				// boolean decouvertAutorise = false;
-				Compte compte = new CompteSansDecouvert(numeroCompte, solde);
-				comptes.add(compte);
-			}
+			return getCompteFromResultSet(requete);
 		} catch (SQLException e) {
-			System.out.println("Erreur " + e.getMessage());
+			System.out.println("Erreur function getComptesByClient() :" + e.getMessage());
+		}
+		return new ArrayList<>();
+	}
+
+	/*
+	 * Design Pattern 'Adapter' qui transforme un resultSet en un compte -> liste
+	 * comptes.
+	 */
+	private List<Compte> getCompteFromResultSet(PreparedStatement requete) throws SQLException {
+		List<Compte> comptes = new ArrayList<>();
+		ResultSet res = requete.executeQuery();
+		while (res.next()) {
+			String numCompte = res.getString(NUMERO_COMPTE);
+			Double solde = res.getDouble(SOLDE);
+			Double decouvertAutorise = res.getDouble(MONTANT_DECOUVERT_AUTORISE);
+			String autorisationDecouvert = res.getString(DECOUVERT_AUTORISE);
+			ETypeCompte typeCompte = getTypeAccordingString(autorisationDecouvert);
+			comptes.add(CompteFactory.getCompte(typeCompte, numCompte, solde, decouvertAutorise));
 		}
 		return comptes;
 	}

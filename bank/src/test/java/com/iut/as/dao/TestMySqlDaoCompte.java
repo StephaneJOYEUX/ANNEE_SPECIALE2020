@@ -4,6 +4,7 @@ import static com.iut.as.enumerations.EPersistance.MYSQL;
 import static com.iut.as.factory.dao.DaoFactory.getDaoFactory;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 
 import java.util.List;
@@ -46,8 +47,9 @@ public class TestMySqlDaoCompte {
 
 	@Test
 	public void testReadByKey() {
-		Compte compte = dao.readByKey("AB7328887341");
+		Compte compte = dao.readByKey(TEST_NUMERO_COMPTE);
 		assertNotNull(compte);
 		assertEquals(TEST_NUMERO_COMPTE, compte.getNumCompte());
+		assertTrue(compte.decouvertAutorise());
 	}
 }
