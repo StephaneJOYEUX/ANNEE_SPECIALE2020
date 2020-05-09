@@ -30,9 +30,9 @@
 		<!-- Gestion de la compilation -->
 		<maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
 		<java.version>1.8</java.version>
-		
+
 		<maven.war.plugin.version>2.6</maven.war.plugin.version>
-		
+
 		<tomcat7-maven-plugin>2.2</tomcat7-maven-plugin>
 
 	</properties>
@@ -116,7 +116,7 @@
 				<artifactId>tomcat7-maven-plugin</artifactId>
 				<version>${tomcat7-maven-plugin}</version>
 				<configuration>
-					<path>/TheBank</path>
+					<path>/bank</path>
 				</configuration>
 			</plugin>
 		</plugins>
