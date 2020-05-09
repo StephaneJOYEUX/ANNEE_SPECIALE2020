@@ -6,7 +6,7 @@ public class BankTechnicalException extends RuntimeException {
 
 	public BankTechnicalException(String functionName, Exception e) {
 		super(e);
-		System.out.println("Une erreur est survenue dans la fonction : " + functionName);
+		System.out.println("Une erreur 'technique' est survenue dans la fonction : '" + functionName + "'");
 		System.out.println("L'erreur est : " + e.getMessage());
 	}
 }

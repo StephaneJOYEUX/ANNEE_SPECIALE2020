@@ -102,7 +102,7 @@ public class MySqlDaoCompte implements IDaoCompte {
 			requete.setString(1, userId);
 			return dto.adapt(requete);
 		} catch (SQLException e) {
-			throw new BankTechnicalException("getComptes()", e);
+			throw new BankTechnicalException("getComptesByClient()", e);
 		}
 	}
 }
