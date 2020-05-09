@@ -14,6 +14,10 @@ public class Client {
 	// 1 client 'estTitulaire' de 1 ou plusieurs comptes.
 	private List<Compte> comptes;
 
+	public List<Compte> getComptes() {
+		return comptes;
+	}
+
 	public Client(String numeroClient, String nom, String adresse) {
 		super();
 		this.numeroClient = numeroClient;
@@ -49,6 +53,13 @@ public class Client {
 
 	@Override
 	public String toString() {
-		return "Client N° " + numeroClient + " / nom " + nom + " / adresse " + adresse;
+		String ret = "Client N° " + numeroClient + " / nom " + nom + " / adresse " + adresse + "\n";
+		if (comptes != null && !comptes.isEmpty()) {
+			for (Compte compte : comptes) {
+				ret += compte.toString();
+			}
+
+		}
+		return ret;
 	}
 }

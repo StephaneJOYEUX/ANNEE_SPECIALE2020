@@ -17,6 +17,8 @@ public class TestMySqlDaoClient {
 
 	private IDaoClient dao;
 
+	private static final String USER_ID_TEST = "client1";
+
 	@Before
 	public void setUp() throws Exception {
 		// Je veux récupérer une instance de MySql :
@@ -29,14 +31,19 @@ public class TestMySqlDaoClient {
 	}
 
 	@Test
-	public void testRecupererListeClients() {
+	public void testRecupererListeClientsEtDesComptes() {
 		List<Client> clients = dao.getListClient();
 		assertNotNull(clients);
 		assertFalse(clients.isEmpty());
+		for (Client client : clients) {
+			if (USER_ID_TEST.equals(client.getNumeroClient())) {
+				assertFalse(client.getComptes().isEmpty());
+			}
+		}
 	}
 
 	@Test
 	public void testReadByKey() {
-		
+
 	}
 }

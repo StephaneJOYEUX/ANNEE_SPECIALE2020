@@ -18,10 +18,10 @@ public class StartPoint {
 			// Connection à la table 'compte' :
 			IDaoCompte dao = daoF.getDaoCompte();
 			// Connection à la table 'client' :
-			IDaoClient daoClient = daoF.getDaoClient();
+			IDaoClient daoClient = daoF.getDaoClient(); // 1 -> Appel DAO
 			System.out.println("===============================");
 			System.out.println("Voici la liste des comptes : ");
-			List<Compte> comptes = dao.getComptes();
+			List<Compte> comptes = dao.getComptes(); 
 			for (Compte compte : comptes) {
 				System.out.println(compte.toString());
 			}
@@ -31,12 +31,7 @@ public class StartPoint {
 			// Je vais réaliser le lien compte - client pour la démonstration :
 			for (Client client : clients) {
 				System.out.println(client.toString());
-				// Récupération des comptes du client :
-				List<Compte> comptesClient = dao.getComptesByClient(client.getNumeroClient());
-				for (Compte compte : comptesClient) {
-					client.addCompte(compte);
-					System.out.println(compte.toString());
-				}
+				//getComptesByClient(dao, client);
 			}
 		} catch (Exception e) {
 			System.out.println("Connection impossible " + e.getMessage());
@@ -44,4 +39,12 @@ public class StartPoint {
 
 	}
 
+	private static void getComptesByClient(IDaoCompte dao, Client client) {
+		// Récupération des comptes du client : --> 1 Appel Dao par client :
+		List<Compte> comptesClient = dao.getComptesByClient(client.getNumeroClient());
+		for (Compte compte : comptesClient) {
+			client.addCompte(compte);
+			System.out.println(compte.toString());
+		}
+	}
 }

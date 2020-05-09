@@ -13,6 +13,7 @@ import org.hibernate.cfg.NotYetImplementedException;
 
 import com.iut.as.interfaces.IDaoClient;
 import com.iut.as.modele.Client;
+import com.iut.as.modele.CompteSansDecouvert;
 
 public class MySqlDaoClient implements IDaoClient {
 
@@ -69,14 +70,17 @@ public class MySqlDaoClient implements IDaoClient {
 
 	@Override
 	public List<Client> getListClient() {
-		String mySQL = "SELECT * FROM utilisateur";
+		String mySQL = "SELECT * FROM utilisateur u INNER JOIN compte c ON  u.userId = c.userId";
 		List<Client> clients = new ArrayList<>();
 		try {
 			PreparedStatement requete = connection.prepareStatement(mySQL);
 			ResultSet res = requete.executeQuery();
 			// Tant qu'un enregistrement existe :
 			while (res.next()) {
-				clients.add(new Client(res.getString("userId"), res.getString("nom"), res.getString("adresse")));
+				Client client = new Client(res.getString("userId"), res.getString("nom"), res.getString("adresse"));
+				// Il faut tester si compte avec ou sans découvert :
+				client.addCompte(new CompteSansDecouvert(res.getString("numeroCompte"), res.getDouble("solde")));
+				clients.add(client);
 			}
 		} catch (SQLException e) {
 			System.out.println("Erreur " + e.getMessage());
