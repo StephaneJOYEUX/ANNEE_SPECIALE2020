@@ -25,7 +25,7 @@ public abstract class Compte {
 	}
 
 	// Constructeur - super() -> lien vers la classe parent.
-	public Compte(String numCompte, Double solde) {
+	protected Compte(String numCompte, Double solde) {
 		this.numCompte = numCompte;
 		this.solde = solde;
 	}

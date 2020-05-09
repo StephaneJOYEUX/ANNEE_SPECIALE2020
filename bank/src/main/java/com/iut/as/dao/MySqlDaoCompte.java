@@ -1,5 +1,9 @@
 package com.iut.as.dao;
 
+import static com.iut.as.dao.BankConstants.DECOUVERT_AUTORISE;
+import static com.iut.as.dao.BankConstants.MONTANT_DECOUVERT_AUTORISE;
+import static com.iut.as.dao.BankConstants.NUMERO_COMPTE;
+import static com.iut.as.dao.BankConstants.SOLDE;
 import static com.iut.as.dao.MySqlConnexion.getInstance;
 import static com.iut.as.enumerations.ETypeCompte.getTypeAccordingString;
 
@@ -28,13 +32,6 @@ public class MySqlDaoCompte implements IDaoCompte {
 	// Création d'un singleton pour éviter les instanciations multiples !
 	// Ce qu'il y a de plus couteux !
 	private static MySqlDaoCompte instance;
-
-	// Création de variables statiques des noms de colonnes des tables utilisées
-	// dans la DAO :
-	private static final String NUMERO_COMPTE = "numeroCompte";
-	private static final String SOLDE = "solde";
-	private static final String DECOUVERT_AUTORISE = "avecDecouvert";
-	private static final String MONTANT_DECOUVERT_AUTORISE = "decouvertAutorise";
 
 	// La connection vers la base de données :
 	private Connection connection;
@@ -78,7 +75,7 @@ public class MySqlDaoCompte implements IDaoCompte {
 		try {
 			PreparedStatement requete = connection.prepareStatement("SELECT * FROM compte WHERE numeroCompte = ?");
 			requete.setString(1, key);
-			return getCompteFromResultSet(requete).get(0);
+			return adapt(requete).get(0);
 		} catch (SQLException e) {
 			System.out.println("Erreur " + e.getMessage());
 		}
@@ -94,7 +91,7 @@ public class MySqlDaoCompte implements IDaoCompte {
 	/* @return - Tous les comptes existant dans la Bdd. */
 	public List<Compte> getComptes() {
 		try {
-			return getCompteFromResultSet(connection.prepareStatement("SELECT * FROM compte"));
+			return adapt(connection.prepareStatement("SELECT * FROM compte"));
 		} catch (SQLException e) {
 			System.out.println("Erreur function getComptes() : " + e.getMessage());
 		}
@@ -108,7 +105,7 @@ public class MySqlDaoCompte implements IDaoCompte {
 			PreparedStatement requete = connection.prepareStatement("SELECT * FROM compte WHERE userId = ?");
 			// Initialisation du paramètre N° 1 :
 			requete.setString(1, userId);
-			return getCompteFromResultSet(requete);
+			return adapt(requete);
 		} catch (SQLException e) {
 			System.out.println("Erreur function getComptesByClient() :" + e.getMessage());
 		}
@@ -119,7 +116,7 @@ public class MySqlDaoCompte implements IDaoCompte {
 	 * Design Pattern 'Adapter' qui transforme un resultSet en un compte -> liste
 	 * comptes.
 	 */
-	private List<Compte> getCompteFromResultSet(PreparedStatement requete) throws SQLException {
+	private List<Compte> adapt(PreparedStatement requete) throws SQLException {
 		List<Compte> comptes = new ArrayList<>();
 		ResultSet res = requete.executeQuery();
 		while (res.next()) {
