@@ -12,4 +12,19 @@ public class LoginController extends ActionSupport {
 
 	private static final long serialVersionUID = 5540616014690763867L;
 
+	private String message;
+	
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	
+	public String connection() {
+		System.out.println("Je suis connecté");
+		setMessage("ça fonctionne");
+		return ActionSupport.SUCCESS;
+	}
 }
