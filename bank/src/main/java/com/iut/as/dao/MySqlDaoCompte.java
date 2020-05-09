@@ -5,7 +5,7 @@ import static com.iut.as.dao.BankConstants.MONTANT_DECOUVERT_AUTORISE;
 import static com.iut.as.dao.BankConstants.NUMERO_COMPTE;
 import static com.iut.as.dao.BankConstants.SOLDE;
 import static com.iut.as.dao.MySqlConnexion.getInstance;
-import static com.iut.as.enumerations.ETypeCompte.getTypeAccordingString;
+import static com.iut.as.enumerations.ETypeCompte.getType;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -124,7 +124,7 @@ public class MySqlDaoCompte implements IDaoCompte {
 			Double solde = res.getDouble(SOLDE);
 			Double decouvertAutorise = res.getDouble(MONTANT_DECOUVERT_AUTORISE);
 			String autorisationDecouvert = res.getString(DECOUVERT_AUTORISE);
-			ETypeCompte typeCompte = getTypeAccordingString(autorisationDecouvert);
+			ETypeCompte typeCompte = getType(autorisationDecouvert);
 			comptes.add(CompteFactory.getCompte(typeCompte, numCompte, solde, decouvertAutorise));
 		}
 		return comptes;

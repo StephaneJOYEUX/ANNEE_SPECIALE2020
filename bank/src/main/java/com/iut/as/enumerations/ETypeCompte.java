@@ -19,11 +19,10 @@ public enum ETypeCompte {
 		this.codeDescription = codeDescription;
 	}
 
-	public static ETypeCompte getTypeAccordingString(String type) {
-		if (AVEC_DECOUVERT.getCodeDescription().equals(type)) {
+	public static ETypeCompte getType(String codeDescription) {
+		if (AVEC_DECOUVERT.getCodeDescription().equals(codeDescription)) {
 			return AVEC_DECOUVERT;
 		}
 		return SANS_DECOUVERT;
 	}
-
 }
