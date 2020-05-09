@@ -1,5 +1,7 @@
 package com.iut.as.dao;
 
+import static com.iut.as.dao.BankConstants.NUMERO_COMPTE;
+import static com.iut.as.dao.BankConstants.USER_ID;
 import static com.iut.as.dao.MySqlConnexion.getInstance;
 
 import java.sql.Connection;
@@ -21,6 +23,8 @@ import com.iut.as.modele.Compte;
  *
  */
 public class MySqlDaoCompte implements IDaoCompte {
+
+	private static final String TABLE_NAME = "compte";
 
 	// Création d'un singleton pour éviter les instanciations multiples !
 	// Ce qu'il y a de plus couteux !
@@ -67,10 +71,16 @@ public class MySqlDaoCompte implements IDaoCompte {
 	}
 
 	@Override
+	public boolean delete(Compte object) {
+		throw new NotYetImplementedException();
+	}
+
+	@Override
 	/* @return 'un compte' du client . */
 	public Compte readByKey(String key) {
 		try {
-			PreparedStatement requete = connection.prepareStatement("SELECT * FROM compte WHERE numeroCompte = ?");
+			PreparedStatement requete = connection
+					.prepareStatement("SELECT * FROM " + TABLE_NAME + " WHERE " + NUMERO_COMPTE + " = ?");
 			requete.setString(1, key);
 			return dto.adapt(requete).get(0);
 		} catch (SQLException e) {
@@ -79,15 +89,10 @@ public class MySqlDaoCompte implements IDaoCompte {
 	}
 
 	@Override
-	public boolean delete(Compte object) {
-		throw new NotYetImplementedException();
-	}
-
-	@Override
 	/* @return - Tous 'les comptes' existants dans la Bdd. */
 	public List<Compte> getComptes() {
 		try {
-			return dto.adapt(connection.prepareStatement("SELECT * FROM compte"));
+			return dto.adapt(connection.prepareStatement("SELECT * FROM " + TABLE_NAME));
 		} catch (SQLException e) {
 			throw new BankTechnicalException("getComptes()", e);
 		}
@@ -97,7 +102,8 @@ public class MySqlDaoCompte implements IDaoCompte {
 	/* @return - Les 'comptes du client' uniquement. */
 	public List<Compte> getComptesByClient(String userId) {
 		try {
-			PreparedStatement requete = connection.prepareStatement("SELECT * FROM compte WHERE userId = ?");
+			PreparedStatement requete = connection
+					.prepareStatement("SELECT * FROM " + TABLE_NAME + " WHERE " + USER_ID + " = ?");
 			// Initialisation du paramètre N° 1 :
 			requete.setString(1, userId);
 			return dto.adapt(requete);
