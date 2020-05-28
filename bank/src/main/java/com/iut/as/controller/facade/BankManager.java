@@ -3,9 +3,12 @@ package com.iut.as.controller.facade;
 import static com.iut.as.enumerations.EPersistance.MYSQL;
 import static com.iut.as.factory.dao.DaoFactory.getDaoFactory;
 
+import java.util.List;
+
 import com.iut.as.exceptions.BankBusinessException;
 import com.iut.as.factory.dao.DaoFactory;
 import com.iut.as.modele.Client;
+import com.iut.as.modele.Compte;
 
 /***
  * Utilisation du design pattern 'Facade' qui cache la complexité de code.
@@ -39,10 +42,23 @@ public class BankManager {
 		boolean passwordOk = client.getPassword().equals(userPwd);
 		if (passwordOk) {
 			System.out.println("Le client existe et le mode de passe est correct !");
+			// Récupération de tous les comptes du client :
+			getComptesByClient(client);
 			return client;
 		} else {
 			System.out.println("Le client existe et le mode de passe est INcorrect !");
 			throw new BankBusinessException("userIsAllowed()", "- Mot de passe incorrect - ");
+		}
+	}
+
+	private void getComptesByClient(Client client) {
+		List<Compte> comptes = dao.getDaoCompte().getComptesByClient(client.getNumeroClient());
+		// Itération :
+		for (Compte compte : comptes) {
+			client.addCompte(compte);
+		}
+		if (client.getComptes() != null) {
+			System.out.println("le client possède : " + client.getComptes().size() + " compte(s)");
 		}
 	}
 }

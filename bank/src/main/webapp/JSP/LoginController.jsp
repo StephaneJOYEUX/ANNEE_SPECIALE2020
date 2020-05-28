@@ -13,5 +13,13 @@
 	<s:text name="clientConnecte.nom"></s:text> / <s:text name="clientConnecte.prenom"></s:text> / <s:text name="clientConnecte.adresse"></s:text>
 	<br>
 	<s:text name="message"></s:text>
+	<br> </br> Voici les comptes du client :
+	<br>
+	<s:iterator value="clientConnecte.comptes">
+		<s:text name="numCompte"></s:text>
+		<s:text name="solde"></s:text>
+		<br>
+	</s:iterator>
+
 </body>
 </html>

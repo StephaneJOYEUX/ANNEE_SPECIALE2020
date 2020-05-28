@@ -12,7 +12,7 @@ public abstract class Compte {
 
 	private Double solde;
 
-	protected Double getSolde() {
+	public Double getSolde() {
 		return solde;
 	}
 
