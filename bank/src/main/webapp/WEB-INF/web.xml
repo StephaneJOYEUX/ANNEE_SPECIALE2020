@@ -5,6 +5,7 @@
 	id="WebApp_ID" version="3.1">
 	<display-name>TheBank</display-name>
 	<welcome-file-list>
+		<!-- Le premier point d'accès : -->
 		<welcome-file>/JSP/index.jsp</welcome-file>
 	</welcome-file-list>
 

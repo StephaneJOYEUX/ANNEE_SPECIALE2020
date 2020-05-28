@@ -8,8 +8,11 @@
 <title>MyBank</title>
 </head>
 <body>
-	Bienvenu dans la banque de l'IUT de METZ :
+	Bienvenue dans la banque de l'IUT de METZ :
 	<h1>Login :</h1>
+	<!-- Paramètre 1 = 'controller' (package) -->
+	<!-- Paramètre 2 = 'LoginController' (classe) -->
+	<!-- Paramètre 3 = 'connection' (méthode) -->
 	<s:form name="myForm"
 		action="controller.LoginController.connection.action" method="POST">
 		<s:textfield label="Code user" name="userCde" />
