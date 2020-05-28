@@ -3,6 +3,7 @@ package com.iut.as.controller.facade;
 import static com.iut.as.enumerations.EPersistance.MYSQL;
 import static com.iut.as.factory.dao.DaoFactory.getDaoFactory;
 
+import com.iut.as.exceptions.BankBusinessException;
 import com.iut.as.factory.dao.DaoFactory;
 import com.iut.as.modele.Client;
 
@@ -29,19 +30,19 @@ public class BankManager {
 	 * @param userPwd
 	 * @return
 	 */
-	public boolean userIsAllowed(String userCde, String userPwd) {
+	public Client userIsAllowed(String userCde, String userPwd) {
 		Client client = dao.getDaoClient().readByKey(userCde);
 		if (client == null) {
 			System.out.println("Le client n'existe pas !");
-			return false;
-			// throw new BankBusinessException("userIsAllowed()", "Utilisateur non trouvé");
+			throw new BankBusinessException("userIsAllowed()", "- Utilisateur non trouvé - ");
 		}
 		boolean passwordOk = client.getPassword().equals(userPwd);
 		if (passwordOk) {
 			System.out.println("Le client existe et le mode de passe est correct !");
+			return client;
 		} else {
 			System.out.println("Le client existe et le mode de passe est INcorrect !");
+			throw new BankBusinessException("userIsAllowed()", "- Mot de passe incorrect - ");
 		}
-		return passwordOk;
 	}
 }

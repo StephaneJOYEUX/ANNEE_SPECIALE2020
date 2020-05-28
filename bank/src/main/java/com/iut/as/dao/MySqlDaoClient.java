@@ -70,6 +70,7 @@ public class MySqlDaoClient implements IDaoClient {
 				// Tant qu'un enregistrement existe :
 				while (res.next()) {
 					Client client = new Client(res.getString("userId"), res.getString("nom"), res.getString("adresse"));
+					client.setPrenom(res.getString("prenom"));
 					client.setPassword(res.getString("userPwd"));
 					return client;
 				}

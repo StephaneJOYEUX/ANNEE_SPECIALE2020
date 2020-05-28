@@ -8,6 +8,7 @@ public class Client {
 	private String numeroClient;
 
 	private String nom;
+	private String prenom;
 	private String adresse;
 	private String password;
 
@@ -51,6 +52,14 @@ public class Client {
 		return nom;
 	}
 
+	public String getPrenom() {
+		return prenom;
+	}
+
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
+
 	/* Fonction qui permet d'ajouter un compte à un client. */
 	public boolean addCompte(Compte compte) {
 		if (compte != null) {
@@ -62,7 +71,8 @@ public class Client {
 
 	@Override
 	public String toString() {
-		String ret = "Client N° " + numeroClient + " / nom " + nom + " / adresse " + adresse + "\n";
+		String ret = "Client N° " + numeroClient + " / nom " + nom + " / prenom " + prenom + " / adresse " + adresse
+				+ "\n";
 		if (comptes != null && !comptes.isEmpty()) {
 			for (Compte compte : comptes) {
 				ret += compte.toString();

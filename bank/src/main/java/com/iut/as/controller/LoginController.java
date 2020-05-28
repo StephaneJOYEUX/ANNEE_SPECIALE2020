@@ -1,6 +1,8 @@
 package com.iut.as.controller;
 
 import com.iut.as.controller.facade.BankManager;
+import com.iut.as.exceptions.BankBusinessException;
+import com.iut.as.modele.Client;
 import com.opensymphony.xwork2.ActionSupport;
 
 /***
@@ -23,6 +25,16 @@ public class LoginController extends ActionSupport {
 	private String userCde;
 	private String userPwd;
 	private String message;
+
+	private Client clientConnecte;
+
+	public Client getClientConnecte() {
+		return clientConnecte;
+	}
+
+	public void setClientConnecte(Client clientConnecte) {
+		this.clientConnecte = clientConnecte;
+	}
 
 	public String getUserCde() {
 		return userCde;
@@ -57,10 +69,13 @@ public class LoginController extends ActionSupport {
 		System.out.println("Je suis ici");
 		System.out.println("Le paramètre 'userCde' = " + this.userCde);
 		System.out.println("Le paramètre 'userPwd' = " + this.userPwd);
-		if (manager.userIsAllowed(userCde, userPwd)) {
+		try {
+			Client client = manager.userIsAllowed(userCde, userPwd);
 			setMessage("user est autorisé");
+			System.out.println(client.toString());
+			setClientConnecte(client);
 			return ActionSupport.SUCCESS;
-		} else {
+		} catch (BankBusinessException e) {
 			setMessage("user est non autorisé");
 			return ActionSupport.ERROR;
 		}

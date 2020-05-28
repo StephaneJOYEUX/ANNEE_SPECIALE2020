@@ -9,6 +9,9 @@
 </head>
 <body>
 	BIENVENUE
+	<br>
+	<s:text name="clientConnecte.nom"></s:text> / <s:text name="clientConnecte.prenom"></s:text> / <s:text name="clientConnecte.adresse"></s:text>
+	<br>
 	<s:text name="message"></s:text>
 </body>
 </html>
