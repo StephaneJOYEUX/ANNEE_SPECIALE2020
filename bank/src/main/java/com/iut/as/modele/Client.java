@@ -9,6 +9,15 @@ public class Client {
 
 	private String nom;
 	private String adresse;
+	private String password;
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 	// 1 Client possède 1 ou plusieurs comptes :
 	// 1 client 'estTitulaire' de 1 ou plusieurs comptes.

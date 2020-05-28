@@ -13,6 +13,10 @@ import java.sql.SQLException;
 public class MySqlConnexion {
 
 	public static Connection instance = null;
+
+	// C'est obsolète dans les dernières version de mysql :
+	private static final String DRIVER_CLASS_NAME = "com.mysql.jdbc.Driver";
+
 	// appel iut ..local host -> infodb.iutmetz.univ-lorraine.fr
 	private static final String URL_MYSQL = "jdbc:mysql://localhost:3306/bankiut";
 	// C'est mal -> Les données sont lisibles ... !! (fichier properties ...)
@@ -23,7 +27,7 @@ public class MySqlConnexion {
 		// Pour éviter une instanciation directe :
 	}
 
-	public static Connection getInstance() throws SQLException {
+	public static Connection getInstance() throws SQLException, ClassNotFoundException {
 		if (instance == null) {
 			instance = creerConnection();
 			System.out.println("Connection établie avec le serveur - et la banque !");
@@ -32,7 +36,8 @@ public class MySqlConnexion {
 	}
 
 	// Créer une 'session' vers la base de données :
-	private static Connection creerConnection() throws SQLException {
+	private static Connection creerConnection() throws SQLException, ClassNotFoundException {
+		Class.forName(DRIVER_CLASS_NAME);
 		return DriverManager.getConnection(URL_MYSQL, USER, PASSWORD);
 	}
 }

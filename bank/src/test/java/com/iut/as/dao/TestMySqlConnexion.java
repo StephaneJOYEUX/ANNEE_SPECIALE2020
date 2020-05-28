@@ -13,7 +13,7 @@ public class TestMySqlConnexion {
 	private static final String DB_NAME = "bankiut";
 
 	@Test
-	public void testConnexionOk() throws SQLException {
+	public void testConnexionOk() throws SQLException, ClassNotFoundException {
 		Connection connection = MySqlConnexion.getInstance();
 		assertNotNull(connection);
 		assertEquals(DB_NAME, connection.getCatalog());

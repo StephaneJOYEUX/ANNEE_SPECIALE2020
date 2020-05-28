@@ -50,7 +50,7 @@ public class MySqlDaoCompte implements IDaoCompte {
 		try {
 			connection = getInstance();
 			dto = new CompteDto();
-		} catch (SQLException e) {
+		} catch (SQLException | ClassNotFoundException e) {
 			throw new BankTechnicalException("MySqlDaoCompte()", e);
 		}
 	}
