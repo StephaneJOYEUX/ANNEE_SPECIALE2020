@@ -54,10 +54,10 @@ public class LoginController extends ActionSupport {
 		System.out.println("Le paramètre 'userPwd' = " + this.userPwd);
 		if (manager.userIsAllowed(userCde, userPwd)) {
 			setMessage("user est autorisé");
+			return ActionSupport.SUCCESS;
 		} else {
 			setMessage("user est non autorisé");
+			return "ERROR";
 		}
-
-		return ActionSupport.SUCCESS;
 	}
 }

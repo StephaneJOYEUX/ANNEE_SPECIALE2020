@@ -5,10 +5,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>OK</title>
+<title>NON-OK</title>
 </head>
 <body>
-	BIENVENUE
+	INTERDIT !
 	<s:text name="message"></s:text>
 </body>
 </html>
