@@ -48,6 +48,11 @@ public class LoginController extends ActionSupport {
 		this.message = message;
 	}
 
+	/*
+	 * Utilisation de la fonction quand click sur le bouton 'submit' de la page
+	 * index.jsp
+	 */
+
 	public String connection() {
 		System.out.println("Je suis ici");
 		System.out.println("Le paramètre 'userCde' = " + this.userCde);
@@ -57,7 +62,7 @@ public class LoginController extends ActionSupport {
 			return ActionSupport.SUCCESS;
 		} else {
 			setMessage("user est non autorisé");
-			return "ERROR";
+			return ActionSupport.ERROR;
 		}
 	}
 }

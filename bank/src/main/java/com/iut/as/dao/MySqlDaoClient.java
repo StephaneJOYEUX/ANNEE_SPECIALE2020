@@ -15,6 +15,7 @@ import com.iut.as.exceptions.BankTechnicalException;
 import com.iut.as.interfaces.IDaoClient;
 import com.iut.as.modele.Client;
 import com.iut.as.modele.CompteSansDecouvert;
+import com.mysql.jdbc.JDBC4PreparedStatement;
 
 public class MySqlDaoClient implements IDaoClient {
 
@@ -64,6 +65,7 @@ public class MySqlDaoClient implements IDaoClient {
 		String mySQL = "SELECT * FROM utilisateur WHERE userId = ? ";
 		try (PreparedStatement requete = connection.prepareStatement(mySQL)) {
 			requete.setString(1, key);
+			System.out.println("requête appel " + ((JDBC4PreparedStatement) requete).asSql());
 			try (ResultSet res = requete.executeQuery()) {
 				// Tant qu'un enregistrement existe :
 				while (res.next()) {
