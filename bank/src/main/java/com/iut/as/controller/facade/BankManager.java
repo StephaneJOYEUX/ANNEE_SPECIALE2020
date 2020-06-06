@@ -61,12 +61,18 @@ public class BankManager {
 		// 2ème appel DB :
 		logger.info("======= Appel DB");
 		return dao.getDaoCompte().getComptesByClient(numeroClient);
+	}
+
+	public void getComptesByClient(Client client) {
+		// 2ème appel DB :
+		logger.info("======= Appel DB");
+		List<Compte> comptes = dao.getDaoCompte().getComptesByClient(client.getNumeroClient());
 		// Itération :
-//		for (Compte compte : comptes) {
-//			client.addCompte(compte);
-//		}
-//		if (client.getComptes() != null) {
-//			logger.info("le client possède : " + client.getComptes().size() + " compte(s)");
-//		}
+		for (Compte compte : comptes) {
+			client.addCompte(compte);
+		}
+		if (client.getComptes() != null) {
+			logger.info("le client possède : " + client.getComptes().size() + " compte(s)");
+		}
 	}
 }
