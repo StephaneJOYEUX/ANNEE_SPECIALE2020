@@ -19,6 +19,11 @@
 		<action name="go" class="com.iut.as.controller.LoginController">
 			<result name="success">JSP/go.jsp</result>
 		</action>
+		
+		<action name="listeComptes" class="com.iut.as.controller.LoginController" method ="listeComptes">
+			<result name="success">JSP/LoginController.jsp</result>
+		</action>
+		
 
 		<action name="retourAccueil"
 			class="com.iut.as.controller.LoginController">

@@ -5,6 +5,8 @@ import static com.iut.as.factory.dao.DaoFactory.getDaoFactory;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.iut.as.exceptions.BankBusinessException;
 import com.iut.as.factory.dao.DaoFactory;
 import com.iut.as.modele.Client;
@@ -20,6 +22,8 @@ public class BankManager {
 
 	private DaoFactory dao;
 
+	private static final Logger logger = Logger.getLogger(BankManager.class);
+
 	public BankManager() throws Exception {
 		// Ici je me connecte à ma base de données.
 		dao = getDaoFactory(MYSQL);
@@ -34,31 +38,35 @@ public class BankManager {
 	 * @return
 	 */
 	public Client userIsAllowed(String userCde, String userPwd) {
+		// 1er appel DB :
+		logger.info("======= Appel DB");
 		Client client = dao.getDaoClient().readByKey(userCde);
 		if (client == null) {
-			System.out.println("Le client n'existe pas !");
+			logger.info("Le client n'existe pas !");
 			throw new BankBusinessException("userIsAllowed()", "- Utilisateur non trouvé - ");
 		}
 		boolean passwordOk = client.getPassword().equals(userPwd);
 		if (passwordOk) {
-			System.out.println("Le client existe et le mode de passe est correct !");
+			logger.info("Le client existe et le mode de passe est correct !");
 			// Récupération de tous les comptes du client :
 			getComptesByClient(client);
 			return client;
 		} else {
-			System.out.println("Le client existe et le mode de passe est INcorrect !");
+			logger.error("Le client existe et le mode de passe est INcorrect !");
 			throw new BankBusinessException("userIsAllowed()", "- Mot de passe incorrect - ");
 		}
 	}
 
 	private void getComptesByClient(Client client) {
+		// 2ème appel DB :
+		logger.info("======= Appel DB");
 		List<Compte> comptes = dao.getDaoCompte().getComptesByClient(client.getNumeroClient());
 		// Itération :
 		for (Compte compte : comptes) {
 			client.addCompte(compte);
 		}
 		if (client.getComptes() != null) {
-			System.out.println("le client possède : " + client.getComptes().size() + " compte(s)");
+			logger.info("le client possède : " + client.getComptes().size() + " compte(s)");
 		}
 	}
 }

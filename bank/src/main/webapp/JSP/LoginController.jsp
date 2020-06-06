@@ -15,9 +15,13 @@
 	<s:text name="clientConnecte.prenom"></s:text>
 	/
 	<s:text name="clientConnecte.adresse"></s:text>
+	<br><br>
+	<b><s:text name="message"></s:text></b>
 	<br>
-	<s:text name="message"></s:text>
-	<br>
+	<s:form name="myFormCompte" action="listeComptes" method="POST">
+		<s:submit name="Comptes" value="Voir la liste des comptes" />
+	</s:form>
+	
 	<br> Voici les comptes du client :
 	<br>
 	<table border="1px solid black">

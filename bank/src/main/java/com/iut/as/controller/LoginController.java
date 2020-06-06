@@ -1,5 +1,9 @@
 package com.iut.as.controller;
 
+import static org.apache.log4j.Logger.getLogger;
+
+import org.apache.log4j.Logger;
+
 import com.iut.as.controller.facade.BankManager;
 import com.iut.as.exceptions.BankBusinessException;
 import com.iut.as.modele.Client;
@@ -16,6 +20,8 @@ public class LoginController extends ActionSupport {
 	private static final long serialVersionUID = 5540616014690763867L;
 
 	private BankManager manager;
+
+	private static final Logger logger = getLogger(LoginController.class);
 
 	public LoginController() throws Exception {
 		// On crée une instance de bank manager;
@@ -66,18 +72,23 @@ public class LoginController extends ActionSupport {
 	 */
 
 	public String connection() {
-		System.out.println("Je suis ici");
-		System.out.println("Le paramètre 'userCde' = " + this.userCde);
-		System.out.println("Le paramètre 'userPwd' = " + this.userPwd);
+		logger.info("Le paramètre 'userCde' = " + this.userCde);
+		logger.info("Le paramètre 'userPwd' = " + this.userPwd);
 		try {
 			Client client = manager.userIsAllowed(userCde, userPwd);
 			setMessage("user est autorisé");
-			System.out.println(client.toString());
+			logger.info(client.toString());
 			setClientConnecte(client);
 			return ActionSupport.SUCCESS;
 		} catch (BankBusinessException e) {
 			setMessage("user est non autorisé");
 			return ActionSupport.ERROR;
 		}
+	}
+
+	public String listeComptes() {
+		logger.info("Demande de la liste des comptes ... ");
+
+		return ActionSupport.SUCCESS;
 	}
 }

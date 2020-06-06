@@ -22,6 +22,7 @@ public class MySqlConnexion {
 	private static final String DRIVER_CLASS_NAME = "com.mysql.jdbc.Driver";
 
 	// appel iut ..local host -> infodb.iutmetz.univ-lorraine.fr
+	// jdbc:mysql://devbdd.iutmetz.univ-lorraine.fr:3306/(user)_(nomBase) --> Via Connection Cisco.
 	private static final String URL_MYSQL = "jdbc:mysql://localhost:3306/bankiut";
 	// C'est mal -> Les données sont lisibles ... !! (fichier properties ...)
 	private static final String USER = "root";
