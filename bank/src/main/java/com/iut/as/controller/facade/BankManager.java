@@ -49,7 +49,7 @@ public class BankManager {
 		if (passwordOk) {
 			logger.info("Le client existe et le mode de passe est correct !");
 			// Récupération de tous les comptes du client :
-			getComptesByClient(client);
+			// getComptesByClient(client);
 			return client;
 		} else {
 			logger.error("Le client existe et le mode de passe est INcorrect !");
@@ -57,16 +57,16 @@ public class BankManager {
 		}
 	}
 
-	private void getComptesByClient(Client client) {
+	public List<Compte> getComptesByClient(String numeroClient) {
 		// 2ème appel DB :
 		logger.info("======= Appel DB");
-		List<Compte> comptes = dao.getDaoCompte().getComptesByClient(client.getNumeroClient());
+		return dao.getDaoCompte().getComptesByClient(numeroClient);
 		// Itération :
-		for (Compte compte : comptes) {
-			client.addCompte(compte);
-		}
-		if (client.getComptes() != null) {
-			logger.info("le client possède : " + client.getComptes().size() + " compte(s)");
-		}
+//		for (Compte compte : comptes) {
+//			client.addCompte(compte);
+//		}
+//		if (client.getComptes() != null) {
+//			logger.info("le client possède : " + client.getComptes().size() + " compte(s)");
+//		}
 	}
 }

@@ -21,7 +21,7 @@
 		</action>
 		
 		<action name="listeComptes" class="com.iut.as.controller.LoginController" method ="listeComptes">
-			<result name="success">JSP/LoginController.jsp</result>
+			<result name="success">/JSP/LoginController.jsp</result>
 		</action>
 		
 
