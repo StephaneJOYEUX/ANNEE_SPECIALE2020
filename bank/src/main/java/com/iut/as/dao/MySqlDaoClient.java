@@ -69,7 +69,7 @@ public class MySqlDaoClient implements IDaoClient {
 		String mySQL = "SELECT * FROM utilisateur WHERE userId = ? ";
 		try (PreparedStatement requete = connection.prepareStatement(mySQL)) {
 			requete.setString(1, key);
-			System.out.println("requête appel " + ((JDBC4PreparedStatement) requete).asSql());
+			logger.info("Requête appel " + ((JDBC4PreparedStatement) requete).asSql());
 			try (ResultSet res = requete.executeQuery()) {
 				// Tant qu'un enregistrement existe :
 				while (res.next()) {
@@ -97,13 +97,15 @@ public class MySqlDaoClient implements IDaoClient {
 		List<Client> clients = new ArrayList<>();
 		try {
 			PreparedStatement requete = connection.prepareStatement(mySQL);
-			ResultSet res = requete.executeQuery();
-			// Tant qu'un enregistrement existe :
-			while (res.next()) {
-				Client client = new Client(res.getString("userId"), res.getString("nom"), res.getString("adresse"));
-				// Il faut tester si compte avec ou sans découvert :
-				client.addCompte(new CompteSansDecouvert(res.getString("numeroCompte"), res.getDouble("solde")));
-				clients.add(client);
+			logger.info("Requête appel " + ((JDBC4PreparedStatement) requete).asSql());
+			try (ResultSet res = requete.executeQuery()) {
+				// Tant qu'un enregistrement existe :
+				while (res.next()) {
+					Client client = new Client(res.getString("userId"), res.getString("nom"), res.getString("adresse"));
+					// Il faut tester si compte avec ou sans découvert :
+					client.addCompte(new CompteSansDecouvert(res.getString("numeroCompte"), res.getDouble("solde")));
+					clients.add(client);
+				}
 			}
 		} catch (SQLException e) {
 			logger.error("Erreur " + e.getMessage());
