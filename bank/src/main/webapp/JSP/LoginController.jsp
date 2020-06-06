@@ -10,16 +10,23 @@
 <body>
 	BIENVENUE
 	<br>
-	<s:text name="clientConnecte.nom"></s:text> / <s:text name="clientConnecte.prenom"></s:text> / <s:text name="clientConnecte.adresse"></s:text>
+	<s:text name="clientConnecte.nom"></s:text>
+	/
+	<s:text name="clientConnecte.prenom"></s:text>
+	/
+	<s:text name="clientConnecte.adresse"></s:text>
 	<br>
 	<s:text name="message"></s:text>
-	<br> </br> Voici les comptes du client :
 	<br>
-	<s:iterator value="clientConnecte.comptes">
-		<s:text name="numCompte"></s:text>
-		<s:text name="solde"></s:text>
-		<br>
-	</s:iterator>
-
+	<br> Voici les comptes du client :
+	<br>
+	<table border="1px solid black">
+		<s:iterator value="clientConnecte.comptes">
+			<tr>
+				<td><s:text name="numCompte"></s:text></td>
+				<td><s:text name="solde"></s:text></td>
+			</tr>
+		</s:iterator>
+	</table>
 </body>
 </html>

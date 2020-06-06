@@ -1,8 +1,12 @@
 package com.iut.as.dao;
 
+import static org.apache.log4j.Logger.getLogger;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+
+import org.apache.log4j.Logger;
 
 /***
  * Classe permettant d'ouvrir une session vers la base de données MySQL.
@@ -23,6 +27,8 @@ public class MySqlConnexion {
 	private static final String USER = "root";
 	private static final String PASSWORD = "root";
 
+	private static final Logger logger = getLogger(MySqlConnexion.class);
+
 	private MySqlConnexion() {
 		// Pour éviter une instanciation directe :
 	}
@@ -30,7 +36,7 @@ public class MySqlConnexion {
 	public static Connection getInstance() throws SQLException, ClassNotFoundException {
 		if (instance == null) {
 			instance = creerConnection();
-			System.out.println("Connection établie avec le serveur - et la banque !");
+			logger.info("Connection établie avec le serveur - et la banque !");
 		}
 		return instance;
 	}
