@@ -62,7 +62,15 @@ public class MySqlDaoCompte implements IDaoCompte {
 
 	@Override
 	public boolean update(Compte object) {
-		throw new NotYetImplementedException();
+		try {
+			PreparedStatement requete = connection
+					.prepareStatement("UPDATE " + TABLE_NAME + " SET solde = ?" + " WHERE numeroCompte = ?");
+			requete.setDouble(1, object.getSolde());
+			requete.setString(2, object.getNumCompte());
+			return (requete.executeUpdate() > 0);
+		} catch (SQLException e) {
+			throw new BankTechnicalException("update()", e);
+		}
 	}
 
 	@Override
