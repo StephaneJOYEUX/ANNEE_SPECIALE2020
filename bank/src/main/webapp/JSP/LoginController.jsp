@@ -11,14 +11,18 @@
 	<s:if test="listeComptesOk">
 		<br> Voici les comptes du client :
 	<br>
-		<table border="1px solid black">
-			<s:iterator value="comptesClient">
-				<tr>
-					<td><s:text name="numCompte"></s:text></td>
-					<td><s:text name="solde"></s:text></td>
-				</tr>
-			</s:iterator>
-		</table>
+		<s:form name="debitCredit" action="debitCredit" method="POST">
+			<table border="1px solid black" width="500px">
+				<s:iterator value="comptesClient">
+					<tr>
+						<s:hidden name="numeroCompte" value="%{numCompte}" />
+						<td width="100px"><s:text name="numCompte"></s:text></td>
+						<td width="50px"><s:text name="solde"></s:text></td>
+						<s:submit name="actionCreditDebit" value="Select" />
+					</tr>
+				</s:iterator>
+			</table>
+		</s:form>
 	</s:if>
 	<s:else>
 	BIENVENUE DANS LA BANQUE
