@@ -25,7 +25,7 @@
 		<servlets.version>3.1.0</servlets.version>
 		<junit.version>4.7</junit.version>
 		<jdbc.mysql.version>5.1.49</jdbc.mysql.version>
-		<hibernate.core.version>5.4.14.Final</hibernate.core.version>
+		<hibernate.core.version>5.4.24.Final</hibernate.core.version>
 
 		<!-- Gestion de la compilation -->
 		<maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
