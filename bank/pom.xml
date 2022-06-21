@@ -24,7 +24,7 @@
 		<!-- Numéro des versions -->
 		<servlets.version>3.1.0</servlets.version>
 		<junit.version>4.7</junit.version>
-		<jdbc.mysql.version>5.1.49</jdbc.mysql.version>
+		<jdbc.mysql.version>8.0.28</jdbc.mysql.version>
 		<hibernate.core.version>5.4.14.Final</hibernate.core.version>
 
 		<!-- Gestion de la compilation -->
